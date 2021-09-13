@@ -1,0 +1,111 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  color: white;
+
+  font-size: 20px;
+}
+
+#page-container {
+  display: flex;
+  justify-content: center;
+}
+
+.objects {
+  position: absolute;
+}
+
+.material {
+  width: 60px;
+  height: 60px;
+
+  transition: background-color 0.125s;
+}
+
+#border {
+  border: 1px solid blue;
+  width: 800px;
+  height: 468px;
+  /*background: url("../images/sky.png");*/
+  overflow: hidden;
+}
+
+.map {
+  background: url("../images/map-house.jpg");
+  width: 1024px;
+  height: 768px;
+  /* 5 times of border*/
+  background-repeat: no-repeat;
+}
+
+#map2{
+  top: -768px;
+}
+
+#map3{
+  top: -768px;
+  left: 1024px;
+}
+
+#map4{
+  left: 1024px;
+}
+
+#map5{
+  top: 768px;
+  left: 1024px;
+}
+
+#map6{
+  top: 768px;
+}
+
+#map7{
+  top: 768px;
+  left: -1024px;
+}
+
+#map8{
+  left: -1024px;
+}
+
+#map9{
+  top: -768px;
+  left: -1024px;
+}
+
+#hero{
+  background-color: red;
+  left: 300px;
+  top: 300px;
+}
+
+#enemy{
+  background-color: blue;
+  left: 100px;
+  top: 100px;
+}
+
+#tree{
+  background-color: green;
+  left: 400px;
+  top: 400px;
+}
+
+#goal{
+  background-color: orange;
+  left: 1600px;
+  top: -400px;
+}
+
+#text-box{
+  background-color: rgba(0,0,0,0.3);
+  left: 300px;
+  bottom: 10px;
+}
