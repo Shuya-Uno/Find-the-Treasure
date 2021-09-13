@@ -37,47 +37,46 @@ body {
 }
 
 .map {
-  background: url("../images/map-house.jpg");
-  width: 1024px;
-  height: 768px;
-  /* 5 times of border*/
+  background: url("../images/dark-green-background.png");
   background-repeat: no-repeat;
+  width: 1280px;
+  height: 1280px;
 }
 
 #map2{
-  top: -768px;
+  top: -1280px;
 }
 
 #map3{
-  top: -768px;
-  left: 1024px;
+  top: -1280px;
+  left: 1280px;
 }
 
 #map4{
-  left: 1024px;
+  left: 1280px;
 }
 
 #map5{
-  top: 768px;
-  left: 1024px;
+  top: 1280px;
+  left: 1280px;
 }
 
 #map6{
-  top: 768px;
+  top: 1280px;
 }
 
 #map7{
-  top: 768px;
-  left: -1024px;
+  top: 1280px;
+  left: -1280px;
 }
 
 #map8{
-  left: -1024px;
+  left: -1280px;
 }
 
 #map9{
-  top: -768px;
-  left: -1024px;
+  top: -1280px;
+  left: -1280px;
 }
 
 #hero{
