@@ -34,6 +34,8 @@ body {
   height: 468px;
   /*background: url("../images/sky.png");*/
   overflow: hidden;
+
+  border-radius: 10px;
 }
 
 .map {
@@ -43,68 +45,72 @@ body {
   height: 1280px;
 }
 
-#map2{
+#map2 {
   top: -1280px;
 }
 
-#map3{
+#map3 {
   top: -1280px;
   left: 1280px;
 }
 
-#map4{
+#map4 {
   left: 1280px;
 }
 
-#map5{
+#map5 {
   top: 1280px;
   left: 1280px;
 }
 
-#map6{
+#map6 {
   top: 1280px;
 }
 
-#map7{
+#map7 {
   top: 1280px;
   left: -1280px;
 }
 
-#map8{
+#map8 {
   left: -1280px;
 }
 
-#map9{
+#map9 {
   top: -1280px;
   left: -1280px;
 }
 
-#hero{
+#hero {
   background-color: red;
   left: 300px;
   top: 300px;
 }
 
-#enemy{
+#enemy {
   background-color: blue;
   left: 100px;
   top: 100px;
 }
 
-#tree{
+#tree {
   background-color: green;
   left: 400px;
   top: 400px;
 }
 
-#goal{
+#goal {
   background-color: orange;
   left: 1600px;
   top: -400px;
 }
 
-#text-box{
-  background-color: rgba(0,0,0,0.3);
-  left: 300px;
-  bottom: 10px;
+#text-box {
+  background-color: rgba(0,0,0,0.4);
+  left: 260px;
+  bottom: 0;
+  padding: 0 10px 0 10px;
+  text-align: center;
+
+  border-radius: 5px;
 }
