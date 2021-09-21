@@ -19,8 +19,6 @@ const map = new Map(
   0,
   mapWidth,
   mapHeight,
-  6,
-  6,
   0,
   0
 );
@@ -31,8 +29,6 @@ const map2 = new Map(
   -768,
   mapWidth,
   mapHeight,
-  6,
-  6,
   0,
   0
 );
@@ -43,8 +39,6 @@ const map3 = new Map(
   -768,
   mapWidth,
   mapHeight,
-  6,
-  6,
   0,
   0
 );
@@ -55,8 +49,6 @@ const map4 = new Map(
   0,
   mapWidth,
   mapHeight,
-  6,
-  6,
   0,
   0
 );
@@ -95,8 +87,8 @@ const tree = new OnMap(
   400,
   onMapWidth,
   onMapHeight,
-  6,
-  6,
+  0,
+  0,
   0,
   0,
   false,
@@ -109,8 +101,8 @@ const goal = new OnMap(
   -400,
   onMapWidth,
   onMapHeight,
-  6,
-  6,
+  0,
+  0,
   0,
   0,
   false,
@@ -128,7 +120,11 @@ const material = [
   goal
 ]
 
+// material: array of movable objects
+
 const materialNumber = material.length;
+
+// materialNumber: the number of objects included in material
 
 const subMaterial = [
   map,
@@ -140,7 +136,11 @@ const subMaterial = [
   goal
 ];
 
+// subMaterial: array of movable objects other than hero
+
 const subMaterialNumber = subMaterial.length;
+
+// subMaterialNumber: the number of objects included in subMaterial
 
 const arrows = {
   ArrowLeft: false,
@@ -156,9 +156,13 @@ function configureDimension(object){
   object.right = object.left + object.width;
   object.bottom = object.top + object.height;
 }
+
 /*
-   left, top, right, bottom: used to evaluate the positional relationship and
-    contact of objects
+   configureDimension
+    calculates the dimension(left,top,right,bottom) of each objects
+
+    left, top, right, bottom: used to evaluate the "positional relationship and
+     contact(whether they are touching each other or not)" of objects
 */
 
 function setInitialDimension(target, targetNumber){
@@ -169,13 +173,31 @@ function setInitialDimension(target, targetNumber){
   }
 }
 
+/*
+   setInitialDimension
+    run only initially, using configureDimension
+    calculates the positional relationship of objects
+     (refers to the default x,y value of each objects)
+*/
+
 function calculateDimension(object){
   object.x = object.x + object.dx;
   object.y = object.y + object.dy;
+  // reconfigure the x and y value referring to current position(x,y) and speed
+
   object.element.style.left = object.x + "px";
   object.element.style.top = object.y + "px";
+  /*
+     actually moving objects displayed on screen by tweaking css,
+      referring to the reconfigured x and y's
+  */
 }
-// moving objects by tweaking css style
+
+/*
+   calculateDimension
+    used to actually move the objects, depending on dx,dy values
+     moves objects by changing css "left, top" values
+*/
 
 function calculatePosition(target, targetNumber){
   let i = 0;
@@ -185,6 +207,12 @@ function calculatePosition(target, targetNumber){
     i++;
   }
 }
+
+/*
+   calculatePosition
+    calculates the relational positions and the actual (on-screen) positions of objects
+     uses configureDimension and calculateDimension
+*/
 
 function speedInitializer(object, objectNumber) {
   let i = 0;
@@ -201,24 +229,34 @@ function speedInitializer(object, objectNumber) {
   }
 }
 
-function chase(subject, object){
-  if(object.top > subject.top){
-    object.speedY = Math.abs(object.speedY) * (-1);
+/*
+   speedInitializer
+    resets dx and dy of objects each time draw runs,
+     so that the objects don't keep accelarating (retained dx,dy everytime)
+    for enemy, refers to speedX and speedY of enemy itself
+     → enemy automatically moves in contrast to other on-map objects
+*/
+
+function chaser(prey, subject){
+  if(subject.left > prey.left){
+    subject.speedX = Math.abs(subject.speedX) * (-1);
   }
   else {
-    object.speedY = Math.abs(object.speedY);
+    subject.speedX = Math.abs(subject.speedX);
   }
 
-  if(object.left > subject.left){
-    object.speedX = Math.abs(object.speedX) * (-1);
+  if(subject.top > prey.top){
+    subject.speedY = Math.abs(subject.speedY) * (-1);
   }
   else {
-    object.speedX = Math.abs(object.speedX);
+    subject.speedY = Math.abs(subject.speedY);
   }
 }
+
 /*
-   reconfigure only the direction of enemy's movement
-    according to the positional relationship with hero
+   chaser
+    reconfigure the direction of enemy's movement to chase (get closer to) the prey
+     calculation according to the positional relationship with prey
 */
 
 function getKeysDown(e){
@@ -270,7 +308,7 @@ function moveDown(object, objectNumber) {
   }
 }
 
-function move(target, targetNumber){
+function moveHero(target, targetNumber){
   if(arrows.ArrowRight){
     moveRight(target, targetNumber);
   }
@@ -355,8 +393,8 @@ function jump(location){
 function gameOver(target, changeColor, color, location){
   if (target.touching && !target.isColored){
     colorOn(target, changeColor);
-    boomSound.addEventListener('ended',() => jump(location));
-    boomSound.play();
+    // boomSound.addEventListener('ended',() => jump(location));
+    // boomSound.play();
   }
   else if(!target.touching && target.isColored){
     colorOff(target, color);
@@ -366,7 +404,7 @@ function gameOver(target, changeColor, color, location){
 function boom(target, changeColor, color){
   if (target.touching && !target.isColored){
     colorOn(target,changeColor);
-    boomSound.play();
+    // boomSound.play();
   }
   else if(!target.touching && target.isColored){
     colorOff(target, color);
@@ -386,8 +424,8 @@ function draw(){
 
   speedInitializer(subMaterial, subMaterialNumber);
 
-  chase(hero, enemy);
-  move(subMaterial, subMaterialNumber);
+  chaser(hero, enemy);
+  moveHero(subMaterial, subMaterialNumber);
 
   calculatePosition(subMaterial, subMaterialNumber);
   touching(hero, enemy, tree, goal);
@@ -397,7 +435,7 @@ function draw(){
   boom(tree, 'yellow', 'green');
   gameOver(goal, 'yellow', 'orange', 'clear');
 
-  setTimeout(draw,18 /*16*/);
+  setTimeout(draw,18);
 }
 
 function start(){
@@ -406,12 +444,11 @@ function start(){
 
   startScreen.remove();
 
-  bgm.play();
+  // bgm.play();
 
   draw();
 
 }
-
 
 // start main code
 setInitialDimension(material, materialNumber);

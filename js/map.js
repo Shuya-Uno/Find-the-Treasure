@@ -6,8 +6,6 @@ class Map {
     y,
     width,
     height,
-    speedX,
-    speedY,
     dx,
     dy
   ){
@@ -16,8 +14,6 @@ class Map {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.speedX = speedX;
-    this.speedY = speedY;
     this.dx = dx;
     this.dy = dy;
     }
