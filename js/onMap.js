@@ -18,6 +18,10 @@ class OnMap {
     this.y = y;
     this.width = width;
     this.height = height;
+    this.left = x;
+    this.top = y;
+    this.right = x + width;
+    this.bottom = y + height;
     this.speedX = speedX;
     this.speedY = speedY;
     this.dx = dx;
@@ -28,6 +32,8 @@ class OnMap {
 }
 
 /*
+   left, top, right, bottom: used to evaluate the "positional relationship and
+    contact(whether they are touching each other or not)" of objects
    speedX, speedY: affects the speed and direction the special moving objects (such as hero,enemy) moves based on each axis
    dx, dy: the final distance and direction the object moves based on each axis
 */

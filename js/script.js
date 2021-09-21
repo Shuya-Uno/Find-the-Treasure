@@ -109,24 +109,7 @@ const goal = new OnMap(
   false
 );
 
-const material = [
-  map,
-  map2,
-  map3,
-  map4,
-  hero,
-  enemy,
-  tree,
-  goal
-]
-
-// material: array of movable objects
-
-const materialNumber = material.length;
-
-// materialNumber: the number of objects included in material
-
-const subMaterial = [
+const whoElse = [
   map,
   map2,
   map3,
@@ -136,11 +119,24 @@ const subMaterial = [
   goal
 ];
 
-// subMaterial: array of movable objects other than hero
+// whoElse: array of movable objects other than hero
 
-const subMaterialNumber = subMaterial.length;
+const whoElseNumber = whoElse.length;
 
-// subMaterialNumber: the number of objects included in subMaterial
+// whoElseNumber: the number of objects included in whoElse
+
+const onMap = [
+  hero,
+  enemy,
+  tree,
+  goal
+];
+
+// onMap: array of onMap objects (quite literal...)
+
+const onMapNumber = onMap.length;
+
+// onMapNumber: the number of objects included in onMap
 
 const arrows = {
   ArrowLeft: false,
@@ -150,37 +146,37 @@ const arrows = {
 }
 
 
-function configureDimension(object){
+
+function dimension(object){
   object.left = object.x;
   object.top = object.y;
-  object.right = object.left + object.width;
-  object.bottom = object.top + object.height;
+  object.right = object.x + object.width;
+  object.bottom = object.y + object.height;
 }
 
 /*
-   configureDimension
-    calculates the dimension(left,top,right,bottom) of each objects
+   dimension
+    calculates the dimension(left,top,right,bottom) of objects
 
     left, top, right, bottom: used to evaluate the "positional relationship and
      contact(whether they are touching each other or not)" of objects
 */
 
-function setInitialDimension(target, targetNumber){
+function setDimension(target, targetNumber){
   let i = 0;
   while (targetNumber > i){
-    configureDimension(target[i]);
+    dimension(target[i]);
     i++;
   }
 }
 
 /*
-   setInitialDimension
-    run only initially, using configureDimension
-    calculates the positional relationship of objects
-     (refers to the default x,y value of each objects)
+   setDimension
+    run demension for each (on-map) objects
 */
 
-function calculateDimension(object){
+
+function position(object){
   object.x = object.x + object.dx;
   object.y = object.y + object.dy;
   // reconfigure the x and y value referring to current position(x,y) and speed
@@ -194,24 +190,23 @@ function calculateDimension(object){
 }
 
 /*
-   calculateDimension
+   position
     used to actually move the objects, depending on dx,dy values
      moves objects by changing css "left, top" values
 */
 
-function calculatePosition(target, targetNumber){
+function setPosition(target, targetNumber){
   let i = 0;
   while (targetNumber > i){
-    configureDimension(target[i]);
-    calculateDimension(target[i]);
+    position(target[i]);
     i++;
   }
 }
 
 /*
-   calculatePosition
-    calculates the relational positions and the actual (on-screen) positions of objects
-     uses configureDimension and calculateDimension
+   setPosition
+    calculates the actual (on-screen) positions of objects
+     uses position
 */
 
 function speedInitializer(object, objectNumber) {
@@ -422,12 +417,13 @@ function crash(target, changeColor, color){
 
 function draw(){
 
-  speedInitializer(subMaterial, subMaterialNumber);
+  speedInitializer(whoElse, whoElseNumber);
 
   chaser(hero, enemy);
-  moveHero(subMaterial, subMaterialNumber);
+  moveHero(whoElse, whoElseNumber);
 
-  calculatePosition(subMaterial, subMaterialNumber);
+  setDimension(onMap, onMapNumber);
+  setPosition(whoElse, whoElseNumber);
   touching(hero, enemy, tree, goal);
 
   crash(hero,'green', 'red');
@@ -451,7 +447,6 @@ function start(){
 }
 
 // start main code
-setInitialDimension(material, materialNumber);
 
 window.addEventListener('keydown',getKeysDown);
 window.addEventListener('keyup',getKeysUp);
