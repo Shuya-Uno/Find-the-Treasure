@@ -125,16 +125,15 @@ const whoElseNumber = whoElse.length;
 
 // whoElseNumber: the number of objects included in whoElse
 
-const onMap = [
-  hero,
+const npc = [
   enemy,
   tree,
   goal
 ];
 
-// onMap: array of onMap objects (quite literal...)
+// npc: array of on-map objects other than hero
 
-const onMapNumber = onMap.length;
+const npcNumber = npc.length;
 
 // onMapNumber: the number of objects included in onMap
 
@@ -172,7 +171,9 @@ function setDimension(target, targetNumber){
 
 /*
    setDimension
-    run demension for each (on-map) objects
+    run demension for each objects
+    targets are on-map obects other than hero
+     (who can have contact with hero and also move on the screen)
 */
 
 
@@ -325,29 +326,32 @@ function moveHero(target, targetNumber){
     the opposite direction from the key pressed
 */
 
+function touch(subject, object){
+  console.log('touching');
+  subject.touching = true;
+  object.touching = true;
+}
+
 function touching(subject, objectOne, objectTwo, objectThree){
   if(
     !(objectOne.right < subject.left ||
       subject.right < objectOne.left ||
       subject.bottom < objectOne.top ||
       objectOne.bottom < subject.top
-      )
-    ){
-    console.log('touching');
-    subject.touching = true;
-    objectOne.touching = true;
+    )
+  ){
+    touch(subject,objectOne);
   }
 
   else if(
-    !(objectTwo.right < subject.left ||
+    !(
+      objectTwo.right < subject.left ||
       subject.right < objectTwo.left ||
       subject.bottom < objectTwo.top ||
       objectTwo.bottom < subject.top
-      )
-    ){
-    console.log('touching');
-    subject.touching = true;
-    objectTwo.touching = true;
+    )
+  ){
+    touch(subject, objectTwo);
   }
 
   else if(
@@ -355,11 +359,9 @@ function touching(subject, objectOne, objectTwo, objectThree){
       subject.right < objectThree.left ||
       subject.bottom < objectThree.top ||
       objectThree.bottom < subject.top
-      )
-    ){
-    console.log('touching');
-    subject.touching = true;
-    objectThree.touching = true;
+    )
+  ){
+    touch(subject, objectThree)
   }
 
   else {
@@ -371,12 +373,12 @@ function touching(subject, objectOne, objectTwo, objectThree){
 }
 
 function colorOn(target, color){
-  target.element.style.backgroundColor=color;
+  target.element.style.backgroundColor = color;
   target.isColored = true;
 }
 
 function colorOff(target, color){
-  target.element.style.backgroundColor=color;
+  target.element.style.backgroundColor = color;
   target.isColored = false;
 }
 
@@ -422,7 +424,7 @@ function draw(){
   chaser(hero, enemy);
   moveHero(whoElse, whoElseNumber);
 
-  setDimension(onMap, onMapNumber);
+  setDimension(npc, npcNumber);
   setPosition(whoElse, whoElseNumber);
   touching(hero, enemy, tree, goal);
 
