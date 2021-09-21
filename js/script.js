@@ -143,11 +143,15 @@ const npcNumber = npc.length;
 
 // onMapNumber: the number of objects included in onMap
 
-const arrows = {
+const direction = {
   ArrowLeft: false,
   ArrowRight: false,
   ArrowUp: false,
-  ArrowDown: false
+  ArrowDown: false,
+  a: false,
+  d: false,
+  w: false,
+  s: false
 }
 
 
@@ -262,9 +266,9 @@ function chaser(prey, subject){
 */
 
 function press(e){
-  if(!arrows[e.key]){
-  // throwing in pressed .key value in arrows array
-    arrows[e.key] = true;
+  if(!direction[e.key]){
+  // throwing in pressed .key value in direction array
+    direction[e.key] = true;
   }
 }
 /*
@@ -273,24 +277,24 @@ function press(e){
 */
 
 function release(e){
-  if(arrows[e.key]){
-    arrows[e.key] = false;
+  if(direction[e.key]){
+    direction[e.key] = false;
   }
 }
 // resets the internal data of the key pressed when each arrow key is released
-
-function moveRight(object, objectNumber) {
-  let i = 0;
-  while (objectNumber > i) {
-    object[i].dx -= hero.speedX;
-    i++;
-  }
-}
 
 function moveLeft(object, objectNumber) {
   let i = 0;
   while (objectNumber > i) {
     object[i].dx += hero.speedX;
+    i++;
+  }
+}
+
+function moveRight(object, objectNumber) {
+  let i = 0;
+  while (objectNumber > i) {
+    object[i].dx -= hero.speedX;
     i++;
   }
 }
@@ -312,19 +316,19 @@ function moveDown(object, objectNumber) {
 }
 
 function move(target, targetNumber){
-  if(arrows.ArrowRight){
-    moveRight(target, targetNumber);
-  }
-
-  if(arrows.ArrowLeft){
+  if(direction.ArrowLeft || direction.a){
     moveLeft(target, targetNumber);
   }
 
-  if (arrows.ArrowUp){
+  if(direction.ArrowRight || direction.d){
+    moveRight(target, targetNumber);
+  }
+
+  if (direction.ArrowUp || direction.w){
     moveUp(target, targetNumber);
   }
 
-  if (arrows.ArrowDown){
+  if (direction.ArrowDown || direction.s){
     moveDown(target, targetNumber);
   }
 }
