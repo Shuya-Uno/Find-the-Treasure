@@ -105,6 +105,10 @@ body {
   top: -400px;
 }
 
+#start-screen:hover {
+  cursor: pointer;
+}
+
 #text-box {
   background-color: rgba(0,0,0,0.4);
   left: 260px;

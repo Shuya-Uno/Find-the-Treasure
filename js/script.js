@@ -7,6 +7,12 @@ const mapHeight = 768;
 const onMapWidth = 60;
 const onMapHeight = 60;
 
+const heroSpeedX = 6;
+const heroSpeedY = 6;
+
+const enemySpeedX = 3.2;
+const enemySpeedY = 3.2;
+
 const startScreen = document.getElementById('start-screen');
 
 const bgm = new Audio('music/retro.mp3');
@@ -59,8 +65,8 @@ const hero = new OnMap(
   300,
   onMapWidth,
   onMapHeight,
-  6,
-  6,
+  heroSpeedX,
+  heroSpeedY,
   0,
   0,
   false,
@@ -73,8 +79,8 @@ const enemy = new OnMap(
   100,
   onMapWidth,
   onMapHeight,
-  3.2,
-  3.2,
+  enemySpeedX,
+  enemySpeedY,
   0,
   0,
   false,
@@ -255,8 +261,9 @@ function chaser(prey, subject){
      calculation according to the positional relationship with prey
 */
 
-function getKeysDown(e){
-  if(arrows[e.key]===false){
+function press(e){
+  if(!arrows[e.key]){
+  // throwing in pressed .key value in arrows array
     arrows[e.key] = true;
   }
 }
@@ -265,8 +272,8 @@ function getKeysDown(e){
     (which is saved as object properties)
 */
 
-function getKeysUp(e){
-  if(arrows[e.key]===true){
+function release(e){
+  if(arrows[e.key]){
     arrows[e.key] = false;
   }
 }
@@ -304,7 +311,7 @@ function moveDown(object, objectNumber) {
   }
 }
 
-function moveHero(target, targetNumber){
+function move(target, targetNumber){
   if(arrows.ArrowRight){
     moveRight(target, targetNumber);
   }
@@ -327,7 +334,6 @@ function moveHero(target, targetNumber){
 */
 
 function touch(subject, object){
-  console.log('touching');
   subject.touching = true;
   object.touching = true;
 }
@@ -422,7 +428,7 @@ function draw(){
   speedInitializer(whoElse, whoElseNumber);
 
   chaser(hero, enemy);
-  moveHero(whoElse, whoElseNumber);
+  move(whoElse, whoElseNumber);
 
   setDimension(npc, npcNumber);
   setPosition(whoElse, whoElseNumber);
@@ -442,6 +448,8 @@ function start(){
 
   startScreen.remove();
 
+  document.body.style.cursor = "none";
+
   // bgm.play();
 
   draw();
@@ -450,8 +458,8 @@ function start(){
 
 // start main code
 
-window.addEventListener('keydown',getKeysDown);
-window.addEventListener('keyup',getKeysUp);
+window.addEventListener('keydown',press);
+window.addEventListener('keyup',release);
 
-document.addEventListener('click', start);
+startScreen.addEventListener('click', start);
 // end main code
