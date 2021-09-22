@@ -10,7 +10,6 @@ class OnMap {
     speedY,
     dx,
     dy,
-    isColored,
     touching
   ){
     this.element = element;
@@ -26,7 +25,6 @@ class OnMap {
     this.speedY = speedY;
     this.dx = dx;
     this.dy = dy;
-    this.isColored = isColored;
     this.touching = touching;
   }
 }

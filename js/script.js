@@ -69,7 +69,6 @@ const hero = new OnMap(
   heroSpeedY,
   0,
   0,
-  false,
   false
 );
 
@@ -83,7 +82,6 @@ const enemy = new OnMap(
   enemySpeedY,
   0,
   0,
-  false,
   false
 );
 
@@ -97,7 +95,6 @@ const tree = new OnMap(
   0,
   0,
   0,
-  false,
   false
 );
 
@@ -111,7 +108,6 @@ const goal = new OnMap(
   0,
   0,
   0,
-  false,
   false
 );
 
@@ -244,14 +240,14 @@ function speedInitializer(object, objectNumber) {
 */
 
 function chaser(prey, subject){
-  if(subject.left > prey.left){
+  if (subject.left > prey.left){
     subject.speedX = Math.abs(subject.speedX) * (-1);
   }
   else {
     subject.speedX = Math.abs(subject.speedX);
   }
 
-  if(subject.top > prey.top){
+  if (subject.top > prey.top){
     subject.speedY = Math.abs(subject.speedY) * (-1);
   }
   else {
@@ -266,7 +262,7 @@ function chaser(prey, subject){
 */
 
 function press(e){
-  if(!direction[e.key]){
+  if (!direction[e.key]){
   // throwing in pressed .key value in direction array
     direction[e.key] = true;
   }
@@ -277,7 +273,7 @@ function press(e){
 */
 
 function release(e){
-  if(direction[e.key]){
+  if (direction[e.key]){
     direction[e.key] = false;
   }
 }
@@ -316,11 +312,11 @@ function moveDown(object, objectNumber) {
 }
 
 function move(target, targetNumber){
-  if(direction.ArrowLeft || direction.a){
+  if (direction.ArrowLeft || direction.a){
     moveLeft(target, targetNumber);
   }
 
-  if(direction.ArrowRight || direction.d){
+  if (direction.ArrowRight || direction.d){
     moveRight(target, targetNumber);
   }
 
@@ -343,32 +339,34 @@ function touch(subject, object){
 }
 
 function touching(subject, objectOne, objectTwo, objectThree){
-  if(
-    !(objectOne.right < subject.left ||
-      subject.right < objectOne.left ||
-      subject.bottom < objectOne.top ||
-      objectOne.bottom < subject.top
+  if (
+    (
+     subject.left < objectOne.right &&
+     subject.right > objectOne.left &&
+     subject.bottom > objectOne.top &&
+     subject.top < objectOne.bottom
     )
   ){
     touch(subject,objectOne);
   }
 
-  else if(
-    !(
-      objectTwo.right < subject.left ||
-      subject.right < objectTwo.left ||
-      subject.bottom < objectTwo.top ||
-      objectTwo.bottom < subject.top
+  else if (
+    (
+     subject.left < objectTwo.right &&
+     subject.right > objectTwo.left &&
+     subject.bottom > objectTwo.top &&
+     subject.top < objectTwo.bottom
     )
   ){
     touch(subject, objectTwo);
   }
 
-  else if(
-    !(objectThree.right < subject.left ||
-      subject.right < objectThree.left ||
-      subject.bottom < objectThree.top ||
-      objectThree.bottom < subject.top
+  else if (
+    (
+     subject.left < objectThree.right &&
+     subject.right > objectThree.left &&
+     subject.bottom > objectThree.top &&
+     subject.top < objectThree.bottom
     )
   ){
     touch(subject, objectThree)
@@ -382,14 +380,8 @@ function touching(subject, objectOne, objectTwo, objectThree){
   }
 }
 
-function colorOn(target, color){
+function changeColor(target, color){
   target.element.style.backgroundColor = color;
-  target.isColored = true;
-}
-
-function colorOff(target, color){
-  target.element.style.backgroundColor = color;
-  target.isColored = false;
 }
 
 function jump(location){
@@ -397,33 +389,33 @@ function jump(location){
   window.location.href = location + ".html";
 }
 
-function gameOver(target, changeColor, color, location){
-  if (target.touching && !target.isColored){
-    colorOn(target, changeColor);
+function gameOver(target, touchingColor, baseColor, location){
+  if (target.touching){
+    changeColor(target, touchingColor);
     // boomSound.addEventListener('ended',() => jump(location));
     // boomSound.play();
   }
-  else if(!target.touching && target.isColored){
-    colorOff(target, color);
+  else {
+    changeColor(target, baseColor);
   }
 }
 
-function boom(target, changeColor, color){
-  if (target.touching && !target.isColored){
-    colorOn(target,changeColor);
+function boom(target, touchingColor, baseColor){
+  if (target.touching){
+    changeColor(target,touchingColor);
     // boomSound.play();
   }
-  else if(!target.touching && target.isColored){
-    colorOff(target, color);
+  else {
+    changeColor(target, baseColor);
   }
 }
 
-function crash(target, changeColor, color){
-  if (target.touching && !target.isColored){
-    colorOn(target, changeColor);
+function crash(target, touchingColor, baseColor){
+  if (target.touching){
+    changeColor(target, touchingColor);
   }
-  else if(!target.touching && target.isColored){
-    colorOff(target, color);
+  else {
+    changeColor(target, baseColor);
   }
 }
 
