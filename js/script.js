@@ -219,13 +219,13 @@ function setPosition(target, targetNumber){
 function speedInitializer(object, objectNumber) {
   let i = 0;
   while (objectNumber > i){
-    if (object[i] != enemy) {
-      object[i].dx = 0;
-      object[i].dy = 0;
-    }
-    else {
+    if (object[i] == enemy) {
       object[i].dx = object[i].speedX;
       object[i].dy = object[i].speedY;
+    }
+    else {
+      object[i].dx = 0;
+      object[i].dy = 0;
     }
     i++;
   }
@@ -452,10 +452,12 @@ function start(){
 
 }
 
+
 // start main code
 
 window.addEventListener('keydown',press);
 window.addEventListener('keyup',release);
 
 startScreen.addEventListener('click', start);
+
 // end main code
