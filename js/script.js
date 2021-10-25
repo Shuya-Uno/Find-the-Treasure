@@ -1,5 +1,4 @@
-import Map from "./map.js";
-import OnMap from "./onMap.js";
+import {Map, OnMap} from "./class.js";
 
 const mapWidth = 1024;
 const mapHeight = 768;
