@@ -15,8 +15,11 @@ const enemySpeedY = 3.2;
 const startScreen = document.getElementById('start-screen');
 
 const bgm = new Audio('music/retro.mp3');
-const boomSound = new Audio('music/boom.mp3');
+bgm.volume = 0.5;
+bgm.loop = true;
 
+const boomSound = new Audio('music/boom.mp3');
+// creates HTMLAudioElement
 
 const map = new Map(
   document.getElementById('map'),
@@ -418,7 +421,7 @@ function crash(target, touchingColor, baseColor){
   }
 }
 
-function draw(){
+function paint(){
 
   speedInitializer(whoElse, whoElseNumber);
 
@@ -434,7 +437,7 @@ function draw(){
   boom(tree, 'yellow', 'green');
   gameOver(goal, 'yellow', 'orange', 'clear');
 
-  setTimeout(draw,18);
+  requestAnimationFrame(paint);
 }
 
 function start(){
@@ -447,9 +450,10 @@ function start(){
 
   // bgm.play();
 
-  draw();
+  paint();
 
 }
+// get rid of no longer necessary things and start the game (bgm and the "paint" animation loop)
 
 
 // start main code
