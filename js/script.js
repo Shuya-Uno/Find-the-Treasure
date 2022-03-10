@@ -1,5 +1,4 @@
-import Map from "./map.js";
-import OnMap from "./onMap.js";
+import {Map, OnMap} from "./class.js";
 
 const mapWidth = 1024;
 const mapHeight = 768;
@@ -7,11 +6,20 @@ const mapHeight = 768;
 const onMapWidth = 60;
 const onMapHeight = 60;
 
+const heroSpeedX = 6;
+const heroSpeedY = 6;
+
+const enemySpeedX = 3.2;
+const enemySpeedY = 3.2;
+
 const startScreen = document.getElementById('start-screen');
 
 const bgm = new Audio('music/retro.mp3');
-const boomSound = new Audio('music/boom.mp3');
+bgm.volume = 0.5;
+bgm.loop = true;
 
+const boomSound = new Audio('music/boom.mp3');
+// creates HTMLAudioElement
 
 const map = new Map(
   document.getElementById('map'),
@@ -19,8 +27,6 @@ const map = new Map(
   0,
   mapWidth,
   mapHeight,
-  6,
-  6,
   0,
   0
 );
@@ -31,8 +37,6 @@ const map2 = new Map(
   -768,
   mapWidth,
   mapHeight,
-  6,
-  6,
   0,
   0
 );
@@ -43,8 +47,6 @@ const map3 = new Map(
   -768,
   mapWidth,
   mapHeight,
-  6,
-  6,
   0,
   0
 );
@@ -55,8 +57,6 @@ const map4 = new Map(
   0,
   mapWidth,
   mapHeight,
-  6,
-  6,
   0,
   0
 );
@@ -67,11 +67,10 @@ const hero = new OnMap(
   300,
   onMapWidth,
   onMapHeight,
-  6,
-  6,
+  heroSpeedX,
+  heroSpeedY,
   0,
   0,
-  false,
   false
 );
 
@@ -81,11 +80,10 @@ const enemy = new OnMap(
   100,
   onMapWidth,
   onMapHeight,
-  3.2,
-  3.2,
+  enemySpeedX,
+  enemySpeedY,
   0,
   0,
-  false,
   false
 );
 
@@ -95,11 +93,10 @@ const tree = new OnMap(
   400,
   onMapWidth,
   onMapHeight,
-  6,
-  6,
   0,
   0,
-  false,
+  0,
+  0,
   false
 );
 
@@ -109,28 +106,14 @@ const goal = new OnMap(
   -400,
   onMapWidth,
   onMapHeight,
-  6,
-  6,
   0,
   0,
-  false,
+  0,
+  0,
   false
 );
 
-const material = [
-  map,
-  map2,
-  map3,
-  map4,
-  hero,
-  enemy,
-  tree,
-  goal
-]
-
-const materialNumber = material.length;
-
-const subMaterial = [
+const whoElse = [
   map,
   map2,
   map3,
@@ -140,90 +123,150 @@ const subMaterial = [
   goal
 ];
 
-const subMaterialNumber = subMaterial.length;
+// whoElse: array of movable objects other than hero
 
-const arrows = {
+const whoElseNumber = whoElse.length;
+
+// whoElseNumber: the number of objects included in whoElse
+
+const npc = [
+  enemy,
+  tree,
+  goal
+];
+
+// npc: array of on-map objects other than hero
+
+const npcNumber = npc.length;
+
+// onMapNumber: the number of objects included in onMap
+
+const direction = {
   ArrowLeft: false,
   ArrowRight: false,
   ArrowUp: false,
-  ArrowDown: false
+  ArrowDown: false,
+  a: false,
+  d: false,
+  w: false,
+  s: false
 }
 
 
-function configureDimension(object){
+
+function dimension(object){
   object.left = object.x;
   object.top = object.y;
-  object.right = object.left + object.width;
-  object.bottom = object.top + object.height;
+  object.right = object.x + object.width;
+  object.bottom = object.y + object.height;
 }
+
 /*
-   left, top, right, bottom: used to evaluate the positional relationship and
-    contact of objects
+   dimension
+    calculates the dimension(left,top,right,bottom) of objects
+
+    left, top, right, bottom: used to evaluate the "positional relationship and
+     contact(whether they are touching each other or not)" of objects
 */
 
-function setInitialDimension(target, targetNumber){
+function setDimension(target, targetNumber){
   let i = 0;
   while (targetNumber > i){
-    configureDimension(target[i]);
+    dimension(target[i]);
     i++;
   }
 }
 
-function calculateDimension(object){
+/*
+   setDimension
+    run demension for each objects
+    targets are on-map obects other than hero
+     (who can have contact with hero and also move on the screen)
+*/
+
+
+function position(object){
   object.x = object.x + object.dx;
   object.y = object.y + object.dy;
+  // reconfigure the x and y value referring to current position(x,y) and speed
+
   object.element.style.left = object.x + "px";
   object.element.style.top = object.y + "px";
+  /*
+     actually moving objects displayed on screen by tweaking css,
+      referring to the reconfigured x and y's
+  */
 }
-// moving objects by tweaking css style
 
-function calculatePosition(target, targetNumber){
+/*
+   position
+    used to actually move the objects, depending on dx,dy values
+     moves objects by changing css "left, top" values
+*/
+
+function setPosition(target, targetNumber){
   let i = 0;
   while (targetNumber > i){
-    configureDimension(target[i]);
-    calculateDimension(target[i]);
+    position(target[i]);
     i++;
   }
 }
+
+/*
+   setPosition
+    calculates the actual (on-screen) positions of objects
+     uses position
+*/
 
 function speedInitializer(object, objectNumber) {
   let i = 0;
   while (objectNumber > i){
-    if (object[i] != enemy) {
-      object[i].dx = 0;
-      object[i].dy = 0;
-    }
-    else {
+    if (object[i] == enemy) {
       object[i].dx = object[i].speedX;
       object[i].dy = object[i].speedY;
+    }
+    else {
+      object[i].dx = 0;
+      object[i].dy = 0;
     }
     i++;
   }
 }
 
-function chase(subject, object){
-  if(object.top > subject.top){
-    object.speedY = Math.abs(object.speedY) * (-1);
-  }
-  else {
-    object.speedY = Math.abs(object.speedY);
-  }
-
-  if(object.left > subject.left){
-    object.speedX = Math.abs(object.speedX) * (-1);
-  }
-  else {
-    object.speedX = Math.abs(object.speedX);
-  }
-}
 /*
-   reconfigure only the direction of enemy's movement
-    according to the positional relationship with hero
+   speedInitializer
+    resets dx and dy of objects each time draw runs,
+     so that the objects don't keep accelarating (retained dx,dy everytime)
+    for enemy, refers to speedX and speedY of enemy itself
+     → enemy automatically moves in contrast to other on-map objects
 */
 
-function getKeysDown(e){
-  if(arrows[e.key]===false){
-    arrows[e.key] = true;
+function chaser(prey, subject){
+  if (subject.left > prey.left){
+    subject.speedX = Math.abs(subject.speedX) * (-1);
+  }
+  else {
+    subject.speedX = Math.abs(subject.speedX);
+  }
+
+  if (subject.top > prey.top){
+    subject.speedY = Math.abs(subject.speedY) * (-1);
+  }
+  else {
+    subject.speedY = Math.abs(subject.speedY);
+  }
+}
+
+/*
+   chaser
+    reconfigure the direction of enemy's movement to chase (get closer to) the prey
+     calculation according to the positional relationship with prey
+*/
+
+function press(e){
+  if (!direction[e.key]){
+  // throwing in pressed .key value in direction array
+    direction[e.key] = true;
   }
 }
 /*
@@ -231,25 +274,25 @@ function getKeysDown(e){
     (which is saved as object properties)
 */
 
-function getKeysUp(e){
-  if(arrows[e.key]===true){
-    arrows[e.key] = false;
+function release(e){
+  if (direction[e.key]){
+    direction[e.key] = false;
   }
 }
 // resets the internal data of the key pressed when each arrow key is released
-
-function moveRight(object, objectNumber) {
-  let i = 0;
-  while (objectNumber > i) {
-    object[i].dx -= hero.speedX;
-    i++;
-  }
-}
 
 function moveLeft(object, objectNumber) {
   let i = 0;
   while (objectNumber > i) {
     object[i].dx += hero.speedX;
+    i++;
+  }
+}
+
+function moveRight(object, objectNumber) {
+  let i = 0;
+  while (objectNumber > i) {
+    object[i].dx -= hero.speedX;
     i++;
   }
 }
@@ -271,19 +314,19 @@ function moveDown(object, objectNumber) {
 }
 
 function move(target, targetNumber){
-  if(arrows.ArrowRight){
-    moveRight(target, targetNumber);
-  }
-
-  if(arrows.ArrowLeft){
+  if (direction.ArrowLeft || direction.a){
     moveLeft(target, targetNumber);
   }
 
-  if (arrows.ArrowUp){
+  if (direction.ArrowRight || direction.d){
+    moveRight(target, targetNumber);
+  }
+
+  if (direction.ArrowUp || direction.w){
     moveUp(target, targetNumber);
   }
 
-  if (arrows.ArrowDown){
+  if (direction.ArrowDown || direction.s){
     moveDown(target, targetNumber);
   }
 }
@@ -292,41 +335,43 @@ function move(target, targetNumber){
     the opposite direction from the key pressed
 */
 
+function touch(subject, object){
+  subject.touching = true;
+  object.touching = true;
+}
+
 function touching(subject, objectOne, objectTwo, objectThree){
-  if(
-    !(objectOne.right < subject.left ||
-      subject.right < objectOne.left ||
-      subject.bottom < objectOne.top ||
-      objectOne.bottom < subject.top
-      )
-    ){
-    console.log('touching');
-    subject.touching = true;
-    objectOne.touching = true;
+  if (
+    (
+     subject.left < objectOne.right &&
+     subject.right > objectOne.left &&
+     subject.bottom > objectOne.top &&
+     subject.top < objectOne.bottom
+    )
+  ){
+    touch(subject,objectOne);
   }
 
-  else if(
-    !(objectTwo.right < subject.left ||
-      subject.right < objectTwo.left ||
-      subject.bottom < objectTwo.top ||
-      objectTwo.bottom < subject.top
-      )
-    ){
-    console.log('touching');
-    subject.touching = true;
-    objectTwo.touching = true;
+  else if (
+    (
+     subject.left < objectTwo.right &&
+     subject.right > objectTwo.left &&
+     subject.bottom > objectTwo.top &&
+     subject.top < objectTwo.bottom
+    )
+  ){
+    touch(subject, objectTwo);
   }
 
-  else if(
-    !(objectThree.right < subject.left ||
-      subject.right < objectThree.left ||
-      subject.bottom < objectThree.top ||
-      objectThree.bottom < subject.top
-      )
-    ){
-    console.log('touching');
-    subject.touching = true;
-    objectThree.touching = true;
+  else if (
+    (
+     subject.left < objectThree.right &&
+     subject.right > objectThree.left &&
+     subject.bottom > objectThree.top &&
+     subject.top < objectThree.bottom
+    )
+  ){
+    touch(subject, objectThree)
   }
 
   else {
@@ -337,14 +382,8 @@ function touching(subject, objectOne, objectTwo, objectThree){
   }
 }
 
-function colorOn(target, color){
-  target.element.style.backgroundColor=color;
-  target.isColored = true;
-}
-
-function colorOff(target, color){
-  target.element.style.backgroundColor=color;
-  target.isColored = false;
+function changeColor(target, color){
+  target.element.style.backgroundColor = color;
 }
 
 function jump(location){
@@ -352,44 +391,45 @@ function jump(location){
   window.location.href = location + ".html";
 }
 
-function gameOver(target, changeColor, color, location){
-  if (target.touching && !target.isColored){
-    colorOn(target, changeColor);
-    boomSound.addEventListener('ended',() => jump(location));
-    boomSound.play();
+function gameOver(target, touchingColor, baseColor, location){
+  if (target.touching){
+    changeColor(target, touchingColor);
+    // boomSound.addEventListener('ended',() => jump(location));
+    // boomSound.play();
   }
-  else if(!target.touching && target.isColored){
-    colorOff(target, color);
-  }
-}
-
-function boom(target, changeColor, color){
-  if (target.touching && !target.isColored){
-    colorOn(target,changeColor);
-    boomSound.play();
-  }
-  else if(!target.touching && target.isColored){
-    colorOff(target, color);
+  else {
+    changeColor(target, baseColor);
   }
 }
 
-function crash(target, changeColor, color){
-  if (target.touching && !target.isColored){
-    colorOn(target, changeColor);
+function boom(target, touchingColor, baseColor){
+  if (target.touching){
+    changeColor(target,touchingColor);
+    // boomSound.play();
   }
-  else if(!target.touching && target.isColored){
-    colorOff(target, color);
+  else {
+    changeColor(target, baseColor);
   }
 }
 
-function draw(){
+function crash(target, touchingColor, baseColor){
+  if (target.touching){
+    changeColor(target, touchingColor);
+  }
+  else {
+    changeColor(target, baseColor);
+  }
+}
 
-  speedInitializer(subMaterial, subMaterialNumber);
+function paint(){
 
-  chase(hero, enemy);
-  move(subMaterial, subMaterialNumber);
+  speedInitializer(whoElse, whoElseNumber);
 
-  calculatePosition(subMaterial, subMaterialNumber);
+  chaser(hero, enemy);
+  move(whoElse, whoElseNumber);
+
+  setDimension(npc, npcNumber);
+  setPosition(whoElse, whoElseNumber);
   touching(hero, enemy, tree, goal);
 
   crash(hero,'green', 'red');
@@ -397,7 +437,7 @@ function draw(){
   boom(tree, 'yellow', 'green');
   gameOver(goal, 'yellow', 'orange', 'clear');
 
-  setTimeout(draw,18 /*16*/);
+  requestAnimationFrame(paint);
 }
 
 function start(){
@@ -406,18 +446,21 @@ function start(){
 
   startScreen.remove();
 
-  bgm.play();
+  document.body.style.cursor = "none";
 
-  draw();
+  // bgm.play();
+
+  paint();
 
 }
+// get rid of no longer necessary things and start the game (bgm and the "paint" animation loop)
 
 
 // start main code
-setInitialDimension(material, materialNumber);
 
-window.addEventListener('keydown',getKeysDown);
-window.addEventListener('keyup',getKeysUp);
+window.addEventListener('keydown',press);
+window.addEventListener('keyup',release);
 
-document.addEventListener('click', start);
+startScreen.addEventListener('click', start);
+
 // end main code

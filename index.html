@@ -2,37 +2,43 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Move Box</title>
+    <title>Find the Treasure!</title>
     <link rel="stylesheet" href="css/styles.css"/>
     <script type="module" src="js/script.js"></script>
-    <script type="module" src="js/map.js"></script>
-    <script type="module" src="js/onMap.js"></script>
+    <script type="module" src="js/class.js"></script>
   </head>
 
   <body>
     <div id="page-container">
       <div id ="border" class="objects">
 
-        <div id="map" class="objects map"></div>
-        <div id="map2" class="objects map"></div>
-        <div id="map3" class="objects map"></div>
-        <div id="map4" class="objects map"></div>
-        <div id="map5" class="objects map"></div>
-        <div id="map6" class="objects map"></div>
-        <div id="map7" class="objects map"></div>
-        <div id="map8" class="objects map"></div>
-        <div id="map9" class="objects map"></div>
+        <div id="field">
+          <div id="map" class="objects map"></div>
+          <div id="map2" class="objects map"></div>
+          <div id="map3" class="objects map"></div>
+          <div id="map4" class="objects map"></div>
+          <div id="map5" class="objects map"></div>
+          <div id="map6" class="objects map"></div>
+          <div id="map7" class="objects map"></div>
+          <div id="map8" class="objects map"></div>
+          <div id="map9" class="objects map"></div>
 
-        <div id="hero" class="objects material"></div>
-        <div id="enemy" class="objects material"></div>
-        <div id="tree" class="objects material"></div>
-        <div id="goal" class="objects material"></div>
+          <div id="hero" class="objects on-map"></div>
+          <div id="enemy" class="objects on-map"></div>
+          <div id="tree" class="objects on-map"></div>
+          <div id="goal" class="objects on-map"></div>
+        </div>
 
         <div id="start-screen">
-          <img id="compass" src="images/compass.jpg" class="objects" style="width: 800px">
+          <img src="images/compass.jpg" id="compass" class="objects" style="width: 800px">
+
           <div id="text-box" class="objects">
-            <p>Click Anywhere to Start!</p>
+            <h1>Find the Treasure!</h1>
+            <div id="message">
+              <p>Click on the screen to Start!</p>
+            </div>
           </div>
+
         </div>
       </div>
     </div>

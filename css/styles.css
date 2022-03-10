@@ -5,6 +5,19 @@
   box-sizing: border-box;
 }
 
+:root {
+  --map-width: 1280px;
+  --map-height: 1280px;
+}
+/* define map-width and map-hight with custom properties
+
+   :root is the eqivalent to <html> object; setting property here
+    lets us inherit any value to all descendants
+
+   since custom properties are like variables, inheritance only
+    happens when called
+*/
+
 body {
   background-color: black;
   color: white;
@@ -16,95 +29,112 @@ body {
   display: flex;
   justify-content: center;
 }
+/* centering content with flexbox*/
 
 .objects {
   position: absolute;
-}
-
-.material {
-  width: 60px;
-  height: 60px;
-
-  transition: background-color 0.125s;
 }
 
 #border {
   border: 1px solid blue;
   width: 800px;
   height: 468px;
-  /*background: url("../images/sky.png");*/
+
   overflow: hidden;
+  /*
+    limits visible area to inside the game screen
+    (prevents overflow of game objects)
+  */
+
+  border-radius: 10px;
 }
 
 .map {
   background: url("../images/dark-green-background.png");
   background-repeat: no-repeat;
-  width: 1280px;
-  height: 1280px;
+  width: var(--map-width);
+  height: var(--map-height);
 }
 
-#map2{
-  top: -1280px;
+#map2 {
+  top: calc(var(--map-height) * -1);
 }
 
-#map3{
-  top: -1280px;
-  left: 1280px;
+#map3 {
+  top: calc(var(--map-height) * -1);
+  left: var(--map-width);
 }
 
-#map4{
-  left: 1280px;
+#map4 {
+  left: var(--map-width);
 }
 
-#map5{
-  top: 1280px;
-  left: 1280px;
+#map5 {
+  top: var(--map-height);
+  left: var(--map-width);
 }
 
-#map6{
-  top: 1280px;
+#map6 {
+  top: var(--map-height);
 }
 
-#map7{
-  top: 1280px;
-  left: -1280px;
+#map7 {
+  top: var(--map-height);
+  left: calc(var(--map-width) * -1);
 }
 
-#map8{
-  left: -1280px;
+#map8 {
+  left: calc(var(--map-width) * -1);
 }
 
-#map9{
-  top: -1280px;
-  left: -1280px;
+#map9 {
+  top: calc(var(--map-height) * -1);
+  left: calc(var(--map-width) * -1);
 }
 
-#hero{
+.on-map {
+  width: 60px;
+  height: 60px;
+
+  transition: background-color 0.125s;
+  /* ease the immediate change of color */
+}
+
+#hero {
   background-color: red;
   left: 300px;
   top: 300px;
 }
 
-#enemy{
+#enemy {
   background-color: blue;
   left: 100px;
   top: 100px;
 }
 
-#tree{
+#tree {
   background-color: green;
   left: 400px;
   top: 400px;
 }
 
-#goal{
+#goal {
   background-color: orange;
   left: 1600px;
   top: -400px;
 }
 
-#text-box{
-  background-color: rgba(0,0,0,0.3);
-  left: 300px;
-  bottom: 10px;
+#start-screen:hover {
+  cursor: pointer;
+  /* implicitly tell the user that clicking the start screen makes you proceed */
+}
+
+#text-box {
+  background-color: rgba(0,0,0,0.4);
+  left: 260px;
+  bottom: 0;
+  padding: 0 10px 0 10px;
+  text-align: center;
+
+  border-radius: 5px;
 }
