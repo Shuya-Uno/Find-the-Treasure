@@ -5,6 +5,19 @@
   box-sizing: border-box;
 }
 
+:root {
+  --map-width: 1280px;
+  --map-height: 1280px;
+}
+/* define map-width and map-hight with custom properties
+
+   :root is the eqivalent to <html> object; setting property here
+    lets us inherit any value to all descendants
+
+   since custom properties are like variables, inheritance only
+    happens when called
+*/
+
 body {
   background-color: black;
   color: white;
@@ -16,6 +29,7 @@ body {
   display: flex;
   justify-content: center;
 }
+/* centering content with flexbox*/
 
 .objects {
   position: absolute;
@@ -25,7 +39,6 @@ body {
   border: 1px solid blue;
   width: 800px;
   height: 468px;
-  /*background: url("../images/sky.png");*/
 
   overflow: hidden;
   /*
@@ -39,44 +52,44 @@ body {
 .map {
   background: url("../images/dark-green-background.png");
   background-repeat: no-repeat;
-  width: 1280px;
-  height: 1280px;
+  width: var(--map-width);
+  height: var(--map-height);
 }
 
 #map2 {
-  top: -1280px;
+  top: calc(var(--map-height) * -1);
 }
 
 #map3 {
-  top: -1280px;
-  left: 1280px;
+  top: calc(var(--map-height) * -1);
+  left: var(--map-width);
 }
 
 #map4 {
-  left: 1280px;
+  left: var(--map-width);
 }
 
 #map5 {
-  top: 1280px;
-  left: 1280px;
+  top: var(--map-height);
+  left: var(--map-width);
 }
 
 #map6 {
-  top: 1280px;
+  top: var(--map-height);
 }
 
 #map7 {
-  top: 1280px;
-  left: -1280px;
+  top: var(--map-height);
+  left: calc(var(--map-width) * -1);
 }
 
 #map8 {
-  left: -1280px;
+  left: calc(var(--map-width) * -1);
 }
 
 #map9 {
-  top: -1280px;
-  left: -1280px;
+  top: calc(var(--map-height) * -1);
+  left: calc(var(--map-width) * -1);
 }
 
 .on-map {
