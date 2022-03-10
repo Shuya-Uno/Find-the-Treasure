@@ -6,7 +6,7 @@ Feel free to play and to give me feedbacks!
 
 ### About this game...
 ・2D Adventure game  
-・Find and lead the Hero(red box) to the treasure(yellow box)  
+・Find and lead the Hero(red box) to the treasure(orange box)  
 ・Move with Arrows / AWSD keys  
 ・Dodge the enemy(blue box) that will chase you  
 ・Just ignore the Tree(green box)... it won't do you any harm  
