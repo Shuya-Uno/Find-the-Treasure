@@ -13,4 +13,4 @@ Feel free to play and to give me feedbacks!
 ・(Temporarily omitting BGM, Clear / Game Over Screen, Map is currently finite)
 
 ### Play it here...!
-&nbsp;&nbsp;&nbsp;&nbsp; 🌳 <https://shuya-uno.github.io/Find-the-Treasure/> 💎
+&nbsp;&nbsp;&nbsp;&nbsp;💎 <https://shuya-uno.github.io/Find-the-Treasure/> 🌳
