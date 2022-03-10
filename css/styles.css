@@ -56,9 +56,13 @@ body {
   height: var(--map-height);
 }
 
+/* accesses custom properties with var()*/
+
 #map2 {
   top: calc(var(--map-height) * -1);
 }
+
+/* for negative value, uses the calc() and multiplies -1*/
 
 #map3 {
   top: calc(var(--map-height) * -1);
