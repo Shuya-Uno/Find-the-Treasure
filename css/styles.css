@@ -28,8 +28,13 @@ body {
 #page-container {
   display: flex;
   justify-content: center;
+  align-items: center;
+  /* centering content with flexbox*/
+
+  height: 100vh;
+  /* for vertical centering, made available by vh (viewport unit)
+      (simply setting to 100% didn't work)*/
 }
-/* centering content with flexbox*/
 
 .objects {
   position: absolute;

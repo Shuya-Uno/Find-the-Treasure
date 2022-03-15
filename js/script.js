@@ -12,6 +12,7 @@ const heroSpeedY = 6;
 const enemySpeedX = 3.2;
 const enemySpeedY = 3.2;
 
+const border = document.getElementById('border');
 const startScreen = document.getElementById('start-screen');
 
 const bgm = new Audio('music/retro.mp3');
@@ -504,7 +505,7 @@ function start(){
 
   startScreen.remove();
 
-  document.body.style.cursor = "none";
+  border.style.cursor = "none";
 
   // bgm.play();
 
