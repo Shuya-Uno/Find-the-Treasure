@@ -2,18 +2,18 @@
 class Map {
   constructor(
     element,
-    x,
-    y,
     width,
     height,
+    x,
+    y,
     dx,
     dy
   ){
     this.element = element;
-    this.x = x;
-    this.y = y;
     this.width = width;
     this.height = height;
+    this.x = x;
+    this.y = y;
     this.dx = dx;
     this.dy = dy;
     }
@@ -25,10 +25,10 @@ class Map {
 class OnMap extends Map {
   constructor(
     element,
-    x,
-    y,
     width,
     height,
+    x,
+    y,
     speedX,
     speedY,
     dx,
@@ -37,10 +37,10 @@ class OnMap extends Map {
   ){
     super(
       element,
-      x,
-      y,
       width,
       height,
+      x,
+      y,
       dx,
       dy
     );

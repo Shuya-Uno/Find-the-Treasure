@@ -23,20 +23,20 @@ const boomSound = new Audio('music/boom.mp3');
 
 const map = new Map(
   document.getElementById('map'),
-  0,
-  0,
   mapWidth,
   mapHeight,
+  0,
+  0,
   0,
   0
 );
 
 const map2 = new Map(
   document.getElementById('map2'),
-  0,
-  -mapHeight,
   mapWidth,
   mapHeight,
+  0,
+  -mapHeight,
   0,
   0
 );
@@ -44,9 +44,9 @@ const map2 = new Map(
 const map3 = new Map(
   document.getElementById('map3'),
   mapWidth,
-  -mapHeight,
-  mapWidth,
   mapHeight,
+  mapWidth,
+  -mapHeight,
   0,
   0
 );
@@ -54,9 +54,9 @@ const map3 = new Map(
 const map4 = new Map(
   document.getElementById('map4'),
   mapWidth,
-  0,
-  mapWidth,
   mapHeight,
+  mapWidth,
+  0,
   0,
   0
 );
@@ -73,9 +73,9 @@ const map5 = new Map(
 
 const map6 = new Map(
   document.getElementById('map6'),
-  0,
-  mapHeight,
   mapWidth,
+  mapHeight,
+  0,
   mapHeight,
   0,
   0
@@ -83,9 +83,9 @@ const map6 = new Map(
 
 const map7 = new Map(
   document.getElementById('map7'),
-  -mapWidth,
-  mapHeight,
   mapWidth,
+  mapHeight,
+  -mapWidth,
   mapHeight,
   0,
   0
@@ -93,30 +93,30 @@ const map7 = new Map(
 
 const map8 = new Map(
   document.getElementById('map8'),
-  -mapWidth,
-  0,
   mapWidth,
   mapHeight,
+  -mapWidth,
+  0,
   0,
   0
 );
 
 const map9 = new Map(
   document.getElementById('map9'),
-  -mapWidth,
-  -mapHeight,
   mapWidth,
   mapHeight,
+  -mapWidth,
+  -mapHeight,
   0,
   0
 );
 
 const hero = new OnMap(
   document.getElementById('hero'),
-  300,
-  300,
   onMapWidth,
   onMapHeight,
+  300,
+  300,
   heroSpeedX,
   heroSpeedY,
   0,
@@ -126,10 +126,10 @@ const hero = new OnMap(
 
 const enemy = new OnMap(
   document.getElementById('enemy'),
-  100,
-  100,
   onMapWidth,
   onMapHeight,
+  100,
+  100,
   enemySpeedX,
   enemySpeedY,
   0,
@@ -139,10 +139,10 @@ const enemy = new OnMap(
 
 const tree = new OnMap(
   document.getElementById('tree'),
-  400,
-  400,
   onMapWidth,
   onMapHeight,
+  400,
+  400,
   0,
   0,
   0,
@@ -152,10 +152,10 @@ const tree = new OnMap(
 
 const goal = new OnMap(
   document.getElementById('goal'),
-  1600,
-  -400,
   onMapWidth,
   onMapHeight,
+  1600,
+  -400,
   0,
   0,
   0,
