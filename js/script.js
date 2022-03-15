@@ -23,50 +23,100 @@ const boomSound = new Audio('music/boom.mp3');
 
 const map = new Map(
   document.getElementById('map'),
-  0,
-  0,
   mapWidth,
   mapHeight,
+  0,
+  0,
   0,
   0
 );
 
 const map2 = new Map(
   document.getElementById('map2'),
-  0,
-  -768,
   mapWidth,
   mapHeight,
+  0,
+  -mapHeight,
   0,
   0
 );
 
 const map3 = new Map(
   document.getElementById('map3'),
-  1024,
-  -768,
   mapWidth,
   mapHeight,
+  mapWidth,
+  -mapHeight,
   0,
   0
 );
 
 const map4 = new Map(
   document.getElementById('map4'),
-  1024,
+  mapWidth,
+  mapHeight,
+  mapWidth,
   0,
+  0,
+  0
+);
+
+const map5 = new Map(
+  document.getElementById('map5'),
+  mapWidth,
+  mapHeight,
   mapWidth,
   mapHeight,
   0,
   0
 );
 
+const map6 = new Map(
+  document.getElementById('map6'),
+  mapWidth,
+  mapHeight,
+  0,
+  mapHeight,
+  0,
+  0
+);
+
+const map7 = new Map(
+  document.getElementById('map7'),
+  mapWidth,
+  mapHeight,
+  -mapWidth,
+  mapHeight,
+  0,
+  0
+);
+
+const map8 = new Map(
+  document.getElementById('map8'),
+  mapWidth,
+  mapHeight,
+  -mapWidth,
+  0,
+  0,
+  0
+);
+
+const map9 = new Map(
+  document.getElementById('map9'),
+  mapWidth,
+  mapHeight,
+  -mapWidth,
+  -mapHeight,
+  0,
+  0
+);
+
 const hero = new OnMap(
   document.getElementById('hero'),
-  300,
-  300,
   onMapWidth,
   onMapHeight,
+  300,
+  300,
   heroSpeedX,
   heroSpeedY,
   0,
@@ -76,10 +126,10 @@ const hero = new OnMap(
 
 const enemy = new OnMap(
   document.getElementById('enemy'),
-  100,
-  100,
   onMapWidth,
   onMapHeight,
+  100,
+  100,
   enemySpeedX,
   enemySpeedY,
   0,
@@ -89,10 +139,10 @@ const enemy = new OnMap(
 
 const tree = new OnMap(
   document.getElementById('tree'),
-  400,
-  400,
   onMapWidth,
   onMapHeight,
+  400,
+  400,
   0,
   0,
   0,
@@ -102,10 +152,10 @@ const tree = new OnMap(
 
 const goal = new OnMap(
   document.getElementById('goal'),
-  1600,
-  -400,
   onMapWidth,
   onMapHeight,
+  1600,
+  -400,
   0,
   0,
   0,
@@ -118,28 +168,33 @@ const whoElse = [
   map2,
   map3,
   map4,
+  map5,
+  map6,
+  map7,
+  map8,
+  map9,
   enemy,
   tree,
   goal
 ];
-
 // whoElse: array of movable objects other than hero
 
-const whoElseNumber = whoElse.length;
 
+const whoElseNumber = whoElse.length;
 // whoElseNumber: the number of objects included in whoElse
+
 
 const npc = [
   enemy,
   tree,
   goal
 ];
-
 // npc: array of on-map objects other than hero
 
-const npcNumber = npc.length;
 
+const npcNumber = npc.length;
 // onMapNumber: the number of objects included in onMap
+
 
 const direction = {
   ArrowLeft: false,
@@ -160,7 +215,6 @@ function dimension(object){
   object.right = object.x + object.width;
   object.bottom = object.y + object.height;
 }
-
 /*
    dimension
     calculates the dimension(left,top,right,bottom) of objects
@@ -169,6 +223,7 @@ function dimension(object){
      contact(whether they are touching each other or not)" of objects
 */
 
+
 function setDimension(target, targetNumber){
   let i = 0;
   while (targetNumber > i){
@@ -176,7 +231,6 @@ function setDimension(target, targetNumber){
     i++;
   }
 }
-
 /*
    setDimension
     run demension for each objects
@@ -197,12 +251,12 @@ function position(object){
       referring to the reconfigured x and y's
   */
 }
-
 /*
    position
     used to actually move the objects, depending on dx,dy values
      moves objects by changing css "left, top" values
 */
+
 
 function setPosition(target, targetNumber){
   let i = 0;
@@ -211,12 +265,14 @@ function setPosition(target, targetNumber){
     i++;
   }
 }
-
 /*
    setPosition
     calculates the actual (on-screen) positions of objects
      uses position
 */
+
+
+
 
 function speedInitializer(object, objectNumber) {
   let i = 0;
@@ -232,7 +288,6 @@ function speedInitializer(object, objectNumber) {
     i++;
   }
 }
-
 /*
    speedInitializer
     resets dx and dy of objects each time draw runs,
@@ -240,6 +295,7 @@ function speedInitializer(object, objectNumber) {
     for enemy, refers to speedX and speedY of enemy itself
      → enemy automatically moves in contrast to other on-map objects
 */
+
 
 function chaser(prey, subject){
   if (subject.left > prey.left){
@@ -256,12 +312,12 @@ function chaser(prey, subject){
     subject.speedY = Math.abs(subject.speedY);
   }
 }
-
 /*
    chaser
     reconfigure the direction of enemy's movement to chase (get closer to) the prey
      calculation according to the positional relationship with prey
 */
+
 
 function press(e){
   if (!direction[e.key]){
@@ -274,12 +330,14 @@ function press(e){
     (which is saved as object properties)
 */
 
+
 function release(e){
   if (direction[e.key]){
     direction[e.key] = false;
   }
 }
 // resets the internal data of the key pressed when each arrow key is released
+
 
 function moveLeft(object, objectNumber) {
   let i = 0;
