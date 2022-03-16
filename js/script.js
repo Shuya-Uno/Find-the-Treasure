@@ -12,6 +12,7 @@ const heroSpeedY = 6;
 const enemySpeedX = 3.2;
 const enemySpeedY = 3.2;
 
+const border = document.getElementById('border');
 const startScreen = document.getElementById('start-screen');
 
 const bgm = new Audio('music/retro.mp3');
@@ -19,7 +20,7 @@ bgm.volume = 0.5;
 bgm.loop = true;
 
 const boomSound = new Audio('music/boom.mp3');
-// creates HTMLAudioElement
+// Creates HTMLAudioElement by new Audio()
 
 const map = new Map(
   document.getElementById('map'),
@@ -115,8 +116,8 @@ const hero = new OnMap(
   document.getElementById('hero'),
   onMapWidth,
   onMapHeight,
-  300,
-  300,
+  354,
+  226,
   heroSpeedX,
   heroSpeedY,
   0,
@@ -177,11 +178,11 @@ const whoElse = [
   tree,
   goal
 ];
-// whoElse: array of movable objects other than hero
+// whoElse: Array of movable objects other than hero
 
 
 const whoElseNumber = whoElse.length;
-// whoElseNumber: the number of objects included in whoElse
+// whoElseNumber: The number of objects included in whoElse
 
 
 const npc = [
@@ -189,11 +190,11 @@ const npc = [
   tree,
   goal
 ];
-// npc: array of on-map objects other than hero
+// npc: Array of on-map objects other than hero
 
 
 const npcNumber = npc.length;
-// onMapNumber: the number of objects included in onMap
+// onMapNumber: The number of objects included in onMap
 
 
 const direction = {
@@ -217,9 +218,9 @@ function dimension(object){
 }
 /*
    dimension
-    calculates the dimension(left,top,right,bottom) of objects
+    Calculates the dimension(left,top,right,bottom) of objects
 
-    left, top, right, bottom: used to evaluate the "positional relationship and
+    left, top, right, bottom: Used to evaluate the "positional relationship and
      contact(whether they are touching each other or not)" of objects
 */
 
@@ -233,8 +234,8 @@ function setDimension(target, targetNumber){
 }
 /*
    setDimension
-    run demension for each objects
-    targets are on-map obects other than hero
+    Run demension for each objects
+    Targets are on-map obects other than hero
      (who can have contact with hero and also move on the screen)
 */
 
@@ -242,18 +243,18 @@ function setDimension(target, targetNumber){
 function position(object){
   object.x = object.x + object.dx;
   object.y = object.y + object.dy;
-  // reconfigure the x and y value referring to current position(x,y) and speed
+  // Reconfigure the x and y value referring to current position(x,y) and speed
 
   object.element.style.left = object.x + "px";
   object.element.style.top = object.y + "px";
   /*
-     actually moving objects displayed on screen by tweaking css,
+     Actually moving objects displayed on screen by tweaking css,
       referring to the reconfigured x and y's
   */
 }
 /*
    position
-    used to actually move the objects, depending on dx,dy values
+    Used to actually move the objects, depending on dx,dy values
      moves objects by changing css "left, top" values
 */
 
@@ -267,7 +268,7 @@ function setPosition(target, targetNumber){
 }
 /*
    setPosition
-    calculates the actual (on-screen) positions of objects
+    Calculates the actual (on-screen) positions of objects
      uses position
 */
 
@@ -290,9 +291,9 @@ function speedInitializer(object, objectNumber) {
 }
 /*
    speedInitializer
-    resets dx and dy of objects each time draw runs,
+    Resets dx and dy of objects each time draw runs,
      so that the objects don't keep accelarating (retained dx,dy everytime)
-    for enemy, refers to speedX and speedY of enemy itself
+    For enemy, refers to speedX and speedY of enemy itself
      → enemy automatically moves in contrast to other on-map objects
 */
 
@@ -314,19 +315,19 @@ function chaser(prey, subject){
 }
 /*
    chaser
-    reconfigure the direction of enemy's movement to chase (get closer to) the prey
+    Reconfigure the direction of enemy's movement to chase (get closer to) the prey
      calculation according to the positional relationship with prey
 */
 
 
 function press(e){
   if (!direction[e.key]){
-  // throwing in pressed .key value in direction array
+  // Throwing in pressed .key value in direction array
     direction[e.key] = true;
   }
 }
 /*
-   reflects the key pressed to internal manageable data
+   Reflects the key pressed to internal manageable data
     (which is saved as object properties)
 */
 
@@ -336,7 +337,7 @@ function release(e){
     direction[e.key] = false;
   }
 }
-// resets the internal data of the key pressed when each arrow key is released
+// Resets the internal data of the key pressed when each arrow key is released
 
 
 function moveLeft(object, objectNumber) {
@@ -389,7 +390,7 @@ function move(target, targetNumber){
   }
 }
 /*
-   reflects the movement of hero by moving all the objects other than hero to
+   Reflects the movement of hero by moving all the objects other than hero to
     the opposite direction from the key pressed
 */
 
@@ -504,14 +505,14 @@ function start(){
 
   startScreen.remove();
 
-  document.body.style.cursor = "none";
+  border.style.cursor = "none";
 
   // bgm.play();
 
   paint();
 
 }
-// get rid of no longer necessary things and start the game (bgm and the "paint" animation loop)
+// Get rid of no longer necessary things and start the game (bgm and the "paint" animation loop)
 
 
 // start main code
