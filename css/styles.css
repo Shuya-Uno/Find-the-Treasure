@@ -9,12 +9,12 @@
   --map-width: 1280px;
   --map-height: 1280px;
 }
-/* define map-width and map-hight with custom properties
+/* Define map-width and map-hight with custom properties
 
-   :root is the eqivalent to <html> object; setting property here
+   :root is the eqivalent to <html> DOM object; setting property here
     lets us inherit any value to all descendants
 
-   since custom properties are like variables, inheritance only
+   Since custom properties are like variables, inheritance only
     happens when called
 */
 
@@ -29,10 +29,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* centering content with flexbox*/
+  /* Centering content with flex*/
 
   height: 100vh;
-  /* for vertical centering, made available by vh (viewport unit)
+  /* Vertical centering made available by vh (viewport unit)
       (simply setting to 100% didn't work)*/
 }
 
@@ -47,8 +47,10 @@ body {
 
   overflow: hidden;
   /*
-    limits visible area to inside the game screen
-    (prevents overflow of game objects)
+    Limits visible area to inside the game screen
+     by overflow: hidden
+      (Prevents overflow of game objects.
+       Provides game-screen-like experience)
   */
 
   border-radius: 10px;
@@ -60,14 +62,14 @@ body {
   width: var(--map-width);
   height: var(--map-height);
 }
+/* Accesses custom properties with var()*/
 
-/* accesses custom properties with var()*/
 
 #map2 {
   top: calc(var(--map-height) * -1);
 }
+/* For setting negative value, uses the calc() and multiplies -1*/
 
-/* for negative value, uses the calc() and multiplies -1*/
 
 #map3 {
   top: calc(var(--map-height) * -1);
@@ -106,7 +108,7 @@ body {
   height: 60px;
 
   transition: background-color 0.125s;
-  /* ease the immediate change of color */
+  /* Ease the immediate change of color with transition*/
 }
 
 #hero {
@@ -135,7 +137,9 @@ body {
 
 #start-screen:hover {
   cursor: pointer;
-  /* implicitly tell the user that clicking the start screen makes you proceed */
+  /*
+     Implicitly tell the user that clicking the start screen
+      makes you proceed, by making the cursor pointer on-hover*/
 }
 
 #text-box {
