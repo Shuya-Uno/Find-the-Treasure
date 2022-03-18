@@ -16,11 +16,12 @@ const border = document.getElementById('border');
 const startScreen = document.getElementById('start-screen');
 
 const bgm = new Audio('music/retro.mp3');
+// Creates HTMLAudioElement by new Audio()
+
 bgm.volume = 0.5;
 bgm.loop = true;
 
 const boomSound = new Audio('music/boom.mp3');
-// Creates HTMLAudioElement by new Audio()
 
 const map = new Map(
   document.getElementById('map'),
@@ -129,8 +130,8 @@ const enemy = new OnMap(
   document.getElementById('enemy'),
   onMapWidth,
   onMapHeight,
-  100,
-  100,
+  -150,
+  -150,
   enemySpeedX,
   enemySpeedY,
   0,
@@ -234,7 +235,7 @@ function setDimension(target, targetNumber){
 }
 /*
    setDimension
-    Run demension for each objects
+    Run dimension() for each objects
     Targets are on-map obects other than hero
      (who can have contact with hero and also move on the screen)
 */
@@ -243,19 +244,19 @@ function setDimension(target, targetNumber){
 function position(object){
   object.x = object.x + object.dx;
   object.y = object.y + object.dy;
-  // Reconfigure the x and y value referring to current position(x,y) and speed
+  // Reconfigure the x and y value, referring to current position(x,y) and speed
 
   object.element.style.left = object.x + "px";
   object.element.style.top = object.y + "px";
   /*
-     Actually moving objects displayed on screen by tweaking css,
+     Actually moving objects on screen by tweaking css,
       referring to the reconfigured x and y's
   */
 }
 /*
    position
     Used to actually move the objects, depending on dx,dy values
-     moves objects by changing css "left, top" values
+    Moves objects by changing css "left, top" values
 */
 
 
@@ -268,8 +269,7 @@ function setPosition(target, targetNumber){
 }
 /*
    setPosition
-    Calculates the actual (on-screen) positions of objects
-     uses position
+    Apply position() to every target
 */
 
 
@@ -291,10 +291,10 @@ function speedInitializer(object, objectNumber) {
 }
 /*
    speedInitializer
-    Resets dx and dy of objects each time draw runs,
-     so that the objects don't keep accelarating (retained dx,dy everytime)
-    For enemy, refers to speedX and speedY of enemy itself
-     → enemy automatically moves in contrast to other on-map objects
+    Resets dx and dy of objects each time paint() runs.
+    Prevents objects from keeping accelarating (due to retained dx,dy everytime)
+    Exclusive for enemy, refers to speedX and speedY (speed and direction) of enemy itself
+     (enemy always have its own move, chasing hero)
 */
 
 
@@ -315,14 +315,14 @@ function chaser(prey, subject){
 }
 /*
    chaser
-    Reconfigure the direction of enemy's movement to chase (get closer to) the prey
-     calculation according to the positional relationship with prey
+    (Re)Configure the direction of enemy's movement to chase hero
+    direction decided by the positional relationship with hero
 */
 
 
 function press(e){
   if (!direction[e.key]){
-  // Throwing in pressed .key value in direction array
+  // Throwing in pressed key value
     direction[e.key] = true;
   }
 }
@@ -512,7 +512,11 @@ function start(){
   paint();
 
 }
-// Get rid of no longer necessary things and start the game (bgm and the "paint" animation loop)
+/*
+   Gets rid of no longer necessary things(start screen, cursor)
+    and start the game (starts off bgm and the "paint" animation loop)
+   Removing done by remove() method
+*/
 
 
 // start main code
