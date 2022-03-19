@@ -394,55 +394,51 @@ function move(target, targetNumber){
     the opposite direction from the key pressed
 */
 
-function touch(subject, object){
-  subject.touching = true;
-  object.touching = true;
-}
 
-function touching(subject, objectOne, objectTwo, objectThree){
-  if (
-    (
-     subject.left < objectOne.right &&
-     subject.right > objectOne.left &&
-     subject.bottom > objectOne.top &&
-     subject.top < objectOne.bottom
-    )
-  ){
-    touch(subject,objectOne);
+function touchChecker(subject, object, objectNumber){
+  let i = 0;
+  let subjectTouch = 0;
+
+  while (objectNumber > i){
+    if (
+     subject.left < object[i].right &&
+     subject.right > object[i].left &&
+     subject.bottom > object[i].top &&
+     subject.top < object[i].bottom
+   ){
+     if (object[i].touching == false){
+       object[i].touching = true;
+     }
+
+     subjectTouch++;
+   }
+
+   else {
+     if (object[i].touching){
+       object[i].touching = false;
+     }
+   }
+
+   i++;
   }
 
-  else if (
-    (
-     subject.left < objectTwo.right &&
-     subject.right > objectTwo.left &&
-     subject.bottom > objectTwo.top &&
-     subject.top < objectTwo.bottom
-    )
-  ){
-    touch(subject, objectTwo);
-  }
-
-  else if (
-    (
-     subject.left < objectThree.right &&
-     subject.right > objectThree.left &&
-     subject.bottom > objectThree.top &&
-     subject.top < objectThree.bottom
-    )
-  ){
-    touch(subject, objectThree)
+  if (subjectTouch > 0){
+    if (subject.touching == false){
+      subject.touching = true;
+    }
   }
 
   else {
-    subject.touching = false;
-    objectOne.touching = false;
-    objectTwo.touching = false;
-    objectThree.touching = false
+    if (subject.touching){
+      subject.touching = false;
+    }
   }
 }
 
 function changeColor(target, color){
-  target.element.style.backgroundColor = color;
+  if (target.element.style.backgroundColor != color){
+    target.element.style.backgroundColor = color;
+  }
 }
 
 function jump(location){
@@ -489,7 +485,7 @@ function paint(){
 
   setDimension(npc, npcNumber);
   setPosition(whoElse, whoElseNumber);
-  touching(hero, enemy, tree, goal);
+  touchChecker(hero, npc, npcNumber);
 
   crash(hero,'green', 'red');
   gameOver(enemy, 'yellow', 'blue', 'defeat');
