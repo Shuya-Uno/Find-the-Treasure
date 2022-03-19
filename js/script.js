@@ -395,13 +395,8 @@ function move(target, targetNumber){
 */
 
 
-function touching(object){
-  object.touching = true;
-}
-
 function touchChecker(subject, object, objectNumber){
   let i = 0;
-  let j = 0;
   let subjectTouch = 0;
 
   while (objectNumber > i){
@@ -411,24 +406,32 @@ function touchChecker(subject, object, objectNumber){
      subject.bottom > object[i].top &&
      subject.top < object[i].bottom
    ){
-     touching(object[i]);
+     if (object[i].touching == false){
+       object[i].touching = true;
+     }
+
      subjectTouch++;
+   }
+
+   else {
+     if (object[i].touching){
+       object[i].touching = false;
+     }
    }
 
    i++;
   }
 
   if (subjectTouch > 0){
-    subject.touching = true;
+    if (subject.touching == false){
+      subject.touching = true;
+    }
   }
 
   else {
-    while (objectNumber > j){
-      object[j].touching = false;
-      j++;
+    if (subject.touching){
+      subject.touching = false;
     }
-    
-    subject.touching = false;
   }
 }
 
