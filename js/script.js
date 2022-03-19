@@ -436,7 +436,9 @@ function touchChecker(subject, object, objectNumber){
 }
 
 function changeColor(target, color){
-  target.element.style.backgroundColor = color;
+  if (target.element.style.backgroundColor != color){
+    target.element.style.backgroundColor = color;
+  }
 }
 
 function jump(location){
