@@ -25,6 +25,10 @@ body {
   font-size: 20px;
 }
 
+body:hover {
+  cursor: default;
+}
+
 #page-container {
   display: flex;
   justify-content: center;
@@ -36,7 +40,7 @@ body {
       (simply setting to 100% didn't work)*/
 }
 
-.objects {
+.absolute {
   position: absolute;
 }
 
@@ -135,7 +139,7 @@ body {
   top: -400px;
 }
 
-#start-screen:hover {
+.clickable:hover {
   cursor: pointer;
   /*
      Implicitly tell the user that clicking the start screen
@@ -143,17 +147,59 @@ body {
   */
 }
 
+#instruction-wrapper,
 #text-box {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
 
   width: 100%;
   height: 100%;
 }
 
+#instruction-wrapper {
+  background-color: rgba(0,0,0,0.4);
+  display: none;
+}
+
+#instruction-content {
+  margin: 60px 0 0 30px;
+}
+
+#instruction-header {
+}
+
+#instruction-list {
+  margin: 1em 0 0 1.5em;
+}
+
+#command {
+  bottom: 12px;
+  right: 17px;
+}
+
+.inline {
+  display: inline;
+}
+
+#back {
+  margin-right: 15px;
+}
+
+
+#text-box {
+  align-items: flex-end;
+  /* display: none; */
+}
+
+#command-start {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 #title,
-#message {
+#play-from-start,
+#instruction-link {
   width: fit-content;
   padding: 0 10px 0 10px;
 
@@ -165,6 +211,11 @@ body {
   border-radius: 5px 5px 0 5px;
 }
 
-#message {
-  border-radius: 0 0 5px 5px
+#play-from-start {
+  margin-top: 20px;
+  border-radius: 5px 5px 0 0;
+}
+
+#instruction-link {
+  border-radius: 0 0 5px 5px;
 }

@@ -14,6 +14,12 @@ const enemySpeedY = 3.2;
 
 const border = document.getElementById('border');
 const startScreen = document.getElementById('start-screen');
+const playFromStart = document.getElementById('play-from-start');
+const instructionLink = document.getElementById('instruction-link');
+const instruction = document.getElementById('instruction-wrapper');
+const textBox = document.getElementById('text-box');
+const back = document.getElementById('back');
+const playFromInstruction = document.getElementById('play-from-instruction');
 
 const bgm = new Audio('music/retro.mp3');
 // Creates HTMLAudioElement by new Audio()
@@ -514,12 +520,26 @@ function start(){
    Removing done by remove() method
 */
 
+function toInstruction(){
+  instruction.style.display = "flex";
+  textBox.style.display = "none";
+}
+
+function backTitle(){
+  instruction.style.display = "none";
+  textBox.style.display = "flex";
+}
 
 // start main code
 
 window.addEventListener('keydown',press);
 window.addEventListener('keyup',release);
 
-startScreen.addEventListener('click', start);
+// startScreen.addEventListener('click', start);
+
+instructionLink.addEventListener('click', toInstruction)
+playFromStart.addEventListener('click', start);
+back.addEventListener('click', backTitle);
+playFromInstruction.addEventListener('click', start);
 
 // end main code

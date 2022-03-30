@@ -10,37 +10,65 @@
 
   <body>
     <div id="page-container">
-      <div id ="border" class="objects">
+      <div id ="border" class="absolute">
 
         <div id="field">
-          <div id="map" class="objects map"></div>
-          <div id="map2" class="objects map"></div>
-          <div id="map3" class="objects map"></div>
-          <div id="map4" class="objects map"></div>
-          <div id="map5" class="objects map"></div>
-          <div id="map6" class="objects map"></div>
-          <div id="map7" class="objects map"></div>
-          <div id="map8" class="objects map"></div>
-          <div id="map9" class="objects map"></div>
+          <div id="map" class="absolute map"></div>
+          <div id="map2" class="absolute map"></div>
+          <div id="map3" class="absolute map"></div>
+          <div id="map4" class="absolute map"></div>
+          <div id="map5" class="absolute map"></div>
+          <div id="map6" class="absolute map"></div>
+          <div id="map7" class="absolute map"></div>
+          <div id="map8" class="absolute map"></div>
+          <div id="map9" class="absolute map"></div>
 
-          <div id="hero" class="objects on-map"></div>
-          <div id="enemy" class="objects on-map"></div>
-          <div id="tree" class="objects on-map"></div>
-          <div id="goal" class="objects on-map"></div>
+          <div id="hero" class="absolute on-map"></div>
+          <div id="enemy" class="absolute on-map"></div>
+          <div id="tree" class="absolute on-map"></div>
+          <div id="goal" class="absolute on-map"></div>
         </div>
 
         <div id="start-screen">
-          <img src="images/compass.jpg" class="objects" style="width: 800px">
+          <img src="images/compass.jpg" class="absolute" style="width: 800px">
 
-          <div id="text-box" class="objects">
+          <div id="instruction-wrapper" class="absolute">
+            <div id="instruction-content">
+              <h1 id="instruction-header">Instructions</h1>
+              <p>
+                <ul id="instruction-list">
+                  <li>Find and lead the Hero (red box) to the treasure (orange box)</li>
+                  <li>Move with Arrows / AWSD keys</li>
+                  <li>Dodge the enemy (blue box) that will chase you</li>
+                  <li>Just ignore the Tree (green box)... it won't do you any harm</li>
+                </ul>
+              </p>
+            </div>
+            <div id="command" class="absolute">
+              <div id="back" class="inline clickable">
+                Back to Title
+              </div>
+              <div id="play-from-instruction" class="inline clickable">
+                Play!
+              </div>
+            </div>
+          </div>
+
+          <div id="text-box" class="absolute">
             <div id="title">
               <h1>Find the Treasure!</h1>
             </div>
 
-            <div id="message">
-              <p>Click on the screen to Start!</p>
+            <div id="command-start">
+              <div id="play-from-start" class="clickable">
+                <p>Play</p>
+              </div>
+
+              <div id="instruction-link" class="clickable">
+                <p>Instructions</p>
+              </div>
             </div>
-          </div>
+            </div>
 
         </div>
       </div>
