@@ -179,14 +179,15 @@ body:hover {
   top: 15px;
   right: 20px;
   background-color: rgba(0,0,0,0.4);
+  text-decoration: line-through;
   border-radius: 1em;
 
   transition: color 0.125s;
 }
 
-/* #music-on:hover {
-  color: #fff;
-} */
+#music-button:hover {
+  text-decoration: none;
+}
 
 #title,
 #play-from-start,

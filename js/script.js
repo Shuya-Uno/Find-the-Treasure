@@ -525,20 +525,63 @@ function start(){
    Removing done by remove() method
 */
 
+function defaultColor(){
+  musicButton.style.color = "#fff";
+}
+
+function setColor(){
+  musicButton.style.color = "blue";
+}
+
+function lineNone(){
+  musicButton.style.textDecoration = "none";
+}
+
+function lineThrough(){
+  musicButton.style.textDecoration = "line-through";
+}
+
 function musicOn(){
   bgm.volume = 0.5;
   boomSound.volume = 1;
+
   musicButton.style.color = "blue";
+  musicButton.style.textDecoration = "none";
+
   musicButton.removeEventListener('click', musicOn);
   musicButton.addEventListener('click', musicOff);
+
+  musicButton.removeEventListener('mouseover', setColor);
+  musicButton.removeEventListener('mouseout', defaultColor);
+  musicButton.addEventListener('mouseover', defaultColor);
+  musicButton.addEventListener('mouseout', setColor);
+
+
+  musicButton.removeEventListener('mouseover', lineNone);
+  musicButton.removeEventListener('mouseout', lineThrough);
+  musicButton.addEventListener('mouseover', lineThrough);
+  musicButton.addEventListener('mouseout', lineNone);
 }
 
 function musicOff(){
   bgm.volume = 0;
   boomSound.volume = 0;
+
   musicButton.style.color = "#fff";
+  musicButton.style.textDecoration = "line-through";
+
   musicButton.removeEventListener('click', musicOff);
   musicButton.addEventListener('click', musicOn);
+
+  musicButton.removeEventListener('mouseover', defaultColor);
+  musicButton.removeEventListener('mouseout', setColor);
+  musicButton.addEventListener('mouseover', setColor);
+  musicButton.addEventListener('mouseout', defaultColor);
+
+  musicButton.removeEventListener('mouseover', lineThrough);
+  musicButton.removeEventListener('mouseout', lineNone);
+  musicButton.addEventListener('mouseover', lineNone);
+  musicButton.addEventListener('mouseout', lineThrough);
 }
 
 function toInstruction(){
