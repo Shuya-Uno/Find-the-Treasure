@@ -14,20 +14,25 @@ const enemySpeedY = 3.2;
 
 const border = document.getElementById('border');
 const startScreen = document.getElementById('start-screen');
+const musicButton = document.getElementById('music-button');
+
 const playFromStart = document.getElementById('play-from-start');
 const instructionLink = document.getElementById('instruction-link');
 const instruction = document.getElementById('instruction-wrapper');
-const textBox = document.getElementById('text-box');
+const startBox = document.getElementById('start-box');
+
 const back = document.getElementById('back');
 const playFromInstruction = document.getElementById('play-from-instruction');
 
 const bgm = new Audio('music/retro.mp3');
 // Creates HTMLAudioElement by new Audio()
 
-bgm.volume = 0.5;
+bgm.volume = 0;
 bgm.loop = true;
 
 const boomSound = new Audio('music/boom.mp3');
+
+boomSound.volume = 0;
 
 const map = new Map(
   document.getElementById('map'),
@@ -455,8 +460,8 @@ function jump(location){
 function gameOver(target, touchingColor, baseColor, location){
   if (target.touching){
     changeColor(target, touchingColor);
-    // boomSound.addEventListener('ended',() => jump(location));
-    // boomSound.play();
+    boomSound.addEventListener('ended',() => jump(location));
+    boomSound.play();
   }
   else {
     changeColor(target, baseColor);
@@ -466,7 +471,7 @@ function gameOver(target, touchingColor, baseColor, location){
 function boom(target, touchingColor, baseColor){
   if (target.touching){
     changeColor(target,touchingColor);
-    // boomSound.play();
+    boomSound.play();
   }
   else {
     changeColor(target, baseColor);
@@ -509,7 +514,7 @@ function start(){
 
   border.style.cursor = "none";
 
-  // bgm.play();
+  bgm.play();
 
   paint();
 
@@ -520,14 +525,30 @@ function start(){
    Removing done by remove() method
 */
 
+function musicOn(){
+  bgm.volume = 0.5;
+  boomSound.volume = 1;
+  musicButton.style.color = "blue";
+  musicButton.removeEventListener('click', musicOn);
+  musicButton.addEventListener('click', musicOff);
+}
+
+function musicOff(){
+  bgm.volume = 0;
+  boomSound.volume = 0;
+  musicButton.style.color = "#fff";
+  musicButton.removeEventListener('click', musicOff);
+  musicButton.addEventListener('click', musicOn);
+}
+
 function toInstruction(){
   instruction.style.display = "flex";
-  textBox.style.display = "none";
+  startBox.style.display = "none";
 }
 
 function backTitle(){
   instruction.style.display = "none";
-  textBox.style.display = "flex";
+  startBox.style.display = "flex";
 }
 
 // start main code
@@ -535,10 +556,11 @@ function backTitle(){
 window.addEventListener('keydown',press);
 window.addEventListener('keyup',release);
 
-// startScreen.addEventListener('click', start);
+musicButton.addEventListener('click', musicOn);
 
 instructionLink.addEventListener('click', toInstruction)
 playFromStart.addEventListener('click', start);
+
 back.addEventListener('click', backTitle);
 playFromInstruction.addEventListener('click', start);
 

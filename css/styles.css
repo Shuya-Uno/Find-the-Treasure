@@ -139,21 +139,84 @@ body:hover {
   top: -400px;
 }
 
+.clickable {
+  transition: color 0.125s;
+}
+
 .clickable:hover {
   cursor: pointer;
   /*
-     Implicitly tell the user that clicking the start screen
+     Implicitly tell the user that clicking the button
       makes you proceed, by making the cursor pointer on-hover
   */
+
+  color: blue;
 }
 
-#instruction-wrapper,
-#text-box {
+#start-box,
+#instruction-wrapper {
   display: flex;
   flex-direction: column;
 
   width: 100%;
   height: 100%;
+}
+
+#start-box {
+  align-items: flex-end;
+  /* display: none; */
+}
+
+#music-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 1em;
+  height: 1em;
+
+  z-index: 1;
+  top: 15px;
+  right: 20px;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 1em;
+
+  transition: color 0.125s;
+}
+
+/* #music-on:hover {
+  color: #fff;
+} */
+
+#title,
+#play-from-start,
+#instruction-link {
+  width: fit-content;
+  padding: 0 10px 0 10px;
+
+  background-color: rgba(0,0,0,0.4);
+}
+
+#title {
+  margin-top: 70px;
+  border-radius: 5px 0 0 5px;
+}
+
+#command-start {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  margin-top: 30px;
+}
+
+#play-from-start {
+  border-radius: 5px 5px 0 0;
+}
+
+#instruction-link {
+  border-radius: 0 5px 5px 5px;
 }
 
 #instruction-wrapper {
@@ -172,7 +235,7 @@ body:hover {
   margin: 1em 0 0 1.5em;
 }
 
-#command {
+#command-instruction {
   bottom: 12px;
   right: 17px;
 }
@@ -183,39 +246,4 @@ body:hover {
 
 #back {
   margin-right: 15px;
-}
-
-
-#text-box {
-  align-items: flex-end;
-  /* display: none; */
-}
-
-#command-start {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-#title,
-#play-from-start,
-#instruction-link {
-  width: fit-content;
-  padding: 0 10px 0 10px;
-
-  background-color: rgba(0,0,0,0.4);
-}
-
-#title {
-  margin-top: 70px;
-  border-radius: 5px 5px 0 5px;
-}
-
-#play-from-start {
-  margin-top: 20px;
-  border-radius: 5px 5px 0 0;
-}
-
-#instruction-link {
-  border-radius: 0 0 5px 5px;
 }
