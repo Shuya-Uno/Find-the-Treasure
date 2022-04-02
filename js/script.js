@@ -31,8 +31,10 @@ bgm.volume = 0;
 bgm.loop = true;
 
 const boomSound = new Audio('music/boom.mp3');
-
 boomSound.volume = 0;
+
+const bushSound = new Audio('music/bush.mp3');
+bushSound.volume  = 0;
 
 const map = new Map(
   document.getElementById('map'),
@@ -468,10 +470,10 @@ function gameOver(target, touchingColor, baseColor, location){
   }
 }
 
-function boom(target, touchingColor, baseColor){
+function bush(target, touchingColor, baseColor){
   if (target.touching){
     changeColor(target,touchingColor);
-    boomSound.play();
+    bushSound.play();
   }
   else {
     changeColor(target, baseColor);
@@ -500,7 +502,7 @@ function paint(){
 
   crash(hero,'green', 'red');
   gameOver(enemy, 'yellow', 'blue', 'defeat');
-  boom(tree, 'yellow', 'green');
+  bush(tree, 'yellow', 'green');
   gameOver(goal, 'yellow', 'orange', 'clear');
 
   requestAnimationFrame(paint);
@@ -525,25 +527,19 @@ function start(){
    Removing done by remove() method
 */
 
-function defaultColor(){
-  musicButton.style.color = "#fff";
+
+function setColor(color){
+  musicButton.style.color = color;
 }
 
-function setColor(){
-  musicButton.style.color = "blue";
-}
-
-function lineNone(){
-  musicButton.style.textDecoration = "none";
-}
-
-function lineThrough(){
-  musicButton.style.textDecoration = "line-through";
+function lineSet(condition){
+  musicButton.style.textDecoration = condition;
 }
 
 function musicOn(){
   bgm.volume = 0.5;
   boomSound.volume = 1;
+  bushSound.volume = 1;
 
   musicButton.style.color = "blue";
   musicButton.style.textDecoration = "none";
@@ -551,21 +547,21 @@ function musicOn(){
   musicButton.removeEventListener('click', musicOn);
   musicButton.addEventListener('click', musicOff);
 
-  musicButton.removeEventListener('mouseover', setColor);
-  musicButton.removeEventListener('mouseout', defaultColor);
-  musicButton.addEventListener('mouseover', defaultColor);
-  musicButton.addEventListener('mouseout', setColor);
+  musicButton.removeEventListener('mouseover', () => setColor('blue'));
+  musicButton.removeEventListener('mouseout', () => setColor('#fff'));
+  musicButton.addEventListener('mouseover', () => setColor('#fff'));
+  musicButton.addEventListener('mouseout', () => setColor('blue'));
 
-
-  musicButton.removeEventListener('mouseover', lineNone);
-  musicButton.removeEventListener('mouseout', lineThrough);
-  musicButton.addEventListener('mouseover', lineThrough);
-  musicButton.addEventListener('mouseout', lineNone);
+  musicButton.removeEventListener('mouseover', () => lineSet('none'));
+  musicButton.removeEventListener('mouseout', () => lineSet('line-through'));
+  musicButton.addEventListener('mouseover', () => lineSet('line-through'));
+  musicButton.addEventListener('mouseout', () => lineSet('none'));
 }
 
 function musicOff(){
   bgm.volume = 0;
   boomSound.volume = 0;
+  bushSound.volume = 0;
 
   musicButton.style.color = "#fff";
   musicButton.style.textDecoration = "line-through";
@@ -573,15 +569,15 @@ function musicOff(){
   musicButton.removeEventListener('click', musicOff);
   musicButton.addEventListener('click', musicOn);
 
-  musicButton.removeEventListener('mouseover', defaultColor);
-  musicButton.removeEventListener('mouseout', setColor);
-  musicButton.addEventListener('mouseover', setColor);
-  musicButton.addEventListener('mouseout', defaultColor);
+  musicButton.removeEventListener('mouseover', () => setColor('#fff'));
+  musicButton.removeEventListener('mouseout', () => setColor('blue'));
+  musicButton.addEventListener('mouseover', () => setColor('blue'));
+  musicButton.addEventListener('mouseout', () => setColor('#fff'));
 
-  musicButton.removeEventListener('mouseover', lineThrough);
-  musicButton.removeEventListener('mouseout', lineNone);
-  musicButton.addEventListener('mouseover', lineNone);
-  musicButton.addEventListener('mouseout', lineThrough);
+  musicButton.removeEventListener('mouseover', () => lineSet('line-through'));
+  musicButton.removeEventListener('mouseout', () => lineSet('none'));
+  musicButton.addEventListener('mouseover', () => lineSet('none'));
+  musicButton.addEventListener('mouseout', () => lineSet('line-through'));
 }
 
 function toInstruction(){
