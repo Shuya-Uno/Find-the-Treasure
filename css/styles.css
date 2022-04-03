@@ -25,6 +25,10 @@ body {
   font-size: 20px;
 }
 
+body:hover {
+  cursor: default;
+}
+
 #page-container {
   display: flex;
   justify-content: center;
@@ -36,7 +40,7 @@ body {
       (simply setting to 100% didn't work)*/
 }
 
-.objects {
+.absolute {
   position: absolute;
 }
 
@@ -135,25 +139,57 @@ body {
   top: -400px;
 }
 
-#start-screen:hover {
+.clickable {
+  transition: color 0.125s;
+}
+
+.clickable:hover {
+  color: blue;
   cursor: pointer;
   /*
-     Implicitly tell the user that clicking the start screen
+     Implicitly tell the user that clicking the button
       makes you proceed, by making the cursor pointer on-hover
   */
 }
 
-#text-box {
+#start-box,
+#instruction-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
 
   width: 100%;
   height: 100%;
 }
 
+#start-box {
+  align-items: flex-end;
+}
+
+#music-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 1em;
+  height: 1em;
+
+  z-index: 1;
+  top: 15px;
+  right: 20px;
+  background-color: rgba(0,0,0,0.4);
+  text-decoration: line-through;
+  border-radius: 1em;
+
+  transition: color 0.125s;
+}
+
+#music-button:hover {
+  text-decoration: none;
+}
+
 #title,
-#message {
+#play-from-start,
+#instruction-link {
   width: fit-content;
   padding: 0 10px 0 10px;
 
@@ -162,9 +198,51 @@ body {
 
 #title {
   margin-top: 70px;
-  border-radius: 5px 5px 0 5px;
+  border-radius: 5px 0 0 5px;
 }
 
-#message {
-  border-radius: 0 0 5px 5px
+#command-start {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  margin-top: 30px;
+}
+
+#play-from-start {
+  border-radius: 5px 5px 0 0;
+}
+
+#instruction-link {
+  border-radius: 0 5px 5px 5px;
+}
+
+#instruction-wrapper {
+  background-color: rgba(0,0,0,0.4);
+  display: none;
+}
+
+#instruction-content {
+  margin: 60px 0 0 30px;
+}
+
+#instruction-header {
+}
+
+#instruction-list {
+  margin: 1em 0 0 1.5em;
+}
+
+#command-instruction {
+  bottom: 12px;
+  right: 17px;
+}
+
+.inline {
+  display: inline;
+}
+
+#back {
+  margin-right: 15px;
 }
