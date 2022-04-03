@@ -144,13 +144,12 @@ body:hover {
 }
 
 .clickable:hover {
+  color: blue;
   cursor: pointer;
   /*
      Implicitly tell the user that clicking the button
       makes you proceed, by making the cursor pointer on-hover
   */
-
-  color: blue;
 }
 
 #start-box,

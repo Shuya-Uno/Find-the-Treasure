@@ -21,6 +21,7 @@ const instructionLink = document.getElementById('instruction-link');
 const instruction = document.getElementById('instruction-wrapper');
 const startBox = document.getElementById('start-box');
 
+
 const back = document.getElementById('back');
 const playFromInstruction = document.getElementById('play-from-instruction');
 
@@ -35,6 +36,9 @@ boomSound.volume = 0;
 
 const bushSound = new Audio('music/bush.mp3');
 bushSound.volume  = 0;
+
+const treasureSound = new Audio('music/treasure.mp3');
+treasureSound.volume = 0;
 
 const map = new Map(
   document.getElementById('map'),
@@ -455,15 +459,32 @@ function changeColor(target, color){
 }
 
 function jump(location){
-  boomSound.removeEventListener('ended', jump);
+  // boomSound.removeEventListener('ended', jump);
   window.location.href = location + ".html";
 }
 
-function gameOver(target, touchingColor, baseColor, location){
+function addJump(soundEffect, location){
+  if (
+    boomSound.paused &&
+    treasureSound.paused
+  ){
+    soundEffect.addEventListener('ended', () => jump(location));
+    soundEffect.play();
+  }
+}
+/*
+   Add event listener and play sound effect
+    only when boomSound or treasureSound is not playing...
+     = If the player reached the goal, or is caught by enemy
+      the first time
+   → Earlier thing the user touched (goal, enemy)
+      decides game clear or not
+*/
+
+function gameOver(target, touchingColor, baseColor,soundEffect, location){
   if (target.touching){
     changeColor(target, touchingColor);
-    boomSound.addEventListener('ended',() => jump(location));
-    boomSound.play();
+    addJump(soundEffect, location);
   }
   else {
     changeColor(target, baseColor);
@@ -501,9 +522,9 @@ function paint(){
   touchChecker(hero, npc, npcNumber);
 
   crash(hero,'green', 'red');
-  gameOver(enemy, 'yellow', 'blue', 'defeat');
+  gameOver(enemy, 'yellow', 'blue', boomSound, 'defeat');
   bush(tree, 'yellow', 'green');
-  gameOver(goal, 'yellow', 'orange', 'clear');
+  gameOver(goal, 'yellow', 'orange', treasureSound, 'clear');
 
   requestAnimationFrame(paint);
 }
@@ -540,6 +561,7 @@ function musicOn(){
   bgm.volume = 0.5;
   boomSound.volume = 1;
   bushSound.volume = 1;
+  treasureSound.volume = 1;
 
   musicButton.style.color = "blue";
   musicButton.style.textDecoration = "none";
@@ -562,6 +584,7 @@ function musicOff(){
   bgm.volume = 0;
   boomSound.volume = 0;
   bushSound.volume = 0;
+  treasureSound.volume = 0;
 
   musicButton.style.color = "#fff";
   musicButton.style.textDecoration = "line-through";
