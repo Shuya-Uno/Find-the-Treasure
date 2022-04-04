@@ -26,7 +26,10 @@ const back = document.getElementById('back');
 const playFromInstruction = document.getElementById('play-from-instruction');
 
 const bgm = new Audio('music/retro.mp3');
-// Creates HTMLAudioElement by new Audio()
+/*
+   Creates HTMLAudioElement by new Audio(),
+    that is controllable in many aspects with properties
+*/
 
 bgm.volume = 0;
 bgm.loop = true;
@@ -212,7 +215,7 @@ const npc = [
 
 
 const npcNumber = npc.length;
-// onMapNumber: The number of objects included in onMap
+// npcNumber: The number of objects included in npc
 
 
 const direction = {
@@ -239,7 +242,8 @@ function dimension(object){
     Calculates the dimension(left,top,right,bottom) of objects
 
     left, top, right, bottom: Used to evaluate the "positional relationship and
-     contact(whether they are touching each other or not)" of objects
+     contact" (whether they are touching each other or not,
+      whether enemy is left or right side of hero... and so) of objects
 */
 
 
@@ -603,14 +607,9 @@ function musicOff(){
   musicButton.addEventListener('mouseout', () => lineSet('line-through'));
 }
 
-function toInstruction(){
-  instruction.style.display = "flex";
-  startBox.style.display = "none";
-}
-
-function backTitle(){
-  instruction.style.display = "none";
-  startBox.style.display = "flex";
+function shiftScreen(conditionOne, conditionTwo){
+  instruction.style.display = conditionOne;
+  startBox.style.display = conditionTwo;
 }
 
 // start main code
@@ -620,10 +619,10 @@ window.addEventListener('keyup',release);
 
 musicButton.addEventListener('click', musicOn);
 
-instructionLink.addEventListener('click', toInstruction)
+instructionLink.addEventListener('click', () => shiftScreen("flex", "none"));
 playFromStart.addEventListener('click', start);
 
-back.addEventListener('click', backTitle);
+back.addEventListener('click', () => shiftScreen("none", "flex"));
 playFromInstruction.addEventListener('click', start);
 
 // end main code
