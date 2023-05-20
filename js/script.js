@@ -38,7 +38,7 @@ const boomSound = new Audio('music/boom.mp3');
 boomSound.volume = 0;
 
 const bushSound = new Audio('music/bush.mp3');
-bushSound.volume  = 0;
+bushSound.volume = 0;
 
 const treasureSound = new Audio('music/treasure.mp3');
 treasureSound.volume = 0;
@@ -294,12 +294,10 @@ function setPosition(target, targetNumber){
 */
 
 
-
-
-function speedInitializer(object, objectNumber) {
+function speedInitializer(object, objectNumber){
   let i = 0;
   while (objectNumber > i){
-    if (object[i] == enemy) {
+    if (object[i] == enemy){
       object[i].dx = object[i].speedX;
       object[i].dy = object[i].speedY;
     }
@@ -312,7 +310,7 @@ function speedInitializer(object, objectNumber) {
 }
 /*
    speedInitializer
-    Resets dx and dy of objects each time paint() runs.
+    Resets dx and dy of objects each time animate() runs.
     Prevents objects from keeping accelarating (due to retained dx,dy everytime)
     Exclusive for enemy, refers to speedX and speedY (speed and direction) of enemy itself
      (enemy always have its own move, chasing hero)
@@ -343,7 +341,7 @@ function chaser(prey, subject){
 
 function press(e){
   if (!direction[e.key]){
-  // Throwing in pressed key value
+    // Throwing in pressed key value
     direction[e.key] = true;
   }
 }
@@ -361,33 +359,33 @@ function release(e){
 // Resets the internal data of the key pressed when each arrow key is released
 
 
-function moveLeft(object, objectNumber) {
+function moveLeft(object, objectNumber){
   let i = 0;
-  while (objectNumber > i) {
+  while (objectNumber > i){
     object[i].dx += hero.speedX;
     i++;
   }
 }
 
-function moveRight(object, objectNumber) {
+function moveRight(object, objectNumber){
   let i = 0;
-  while (objectNumber > i) {
+  while (objectNumber > i){
     object[i].dx -= hero.speedX;
     i++;
   }
 }
 
-function moveUp(object, objectNumber) {
+function moveUp(object, objectNumber){
   let i = 0;
-  while (objectNumber > i) {
+  while (objectNumber > i){
     object[i].dy += hero.speedY;
     i++;
   }
 }
 
-function moveDown(object, objectNumber) {
+function moveDown(object, objectNumber){
   let i = 0;
-  while (objectNumber > i) {
+  while (objectNumber > i){
     object[i].dy -= hero.speedY;
     i++;
   }
@@ -422,25 +420,25 @@ function touchChecker(subject, object, objectNumber){
 
   while (objectNumber > i){
     if (
-     subject.left < object[i].right &&
-     subject.right > object[i].left &&
-     subject.bottom > object[i].top &&
-     subject.top < object[i].bottom
-   ){
-     if (object[i].touching == false){
-       object[i].touching = true;
-     }
+      subject.left < object[i].right &&
+      subject.right > object[i].left &&
+      subject.bottom > object[i].top &&
+      subject.top < object[i].bottom
+    ){
+      if (object[i].touching == false){
+        object[i].touching = true;
+      }
 
-     subjectTouch++;
-   }
+      subjectTouch++;
+    }
 
-   else {
-     if (object[i].touching){
-       object[i].touching = false;
-     }
-   }
+    else {
+      if (object[i].touching){
+        object[i].touching = false;
+      }
+    }
 
-   i++;
+    i++;
   }
 
   if (subjectTouch > 0){
@@ -485,7 +483,7 @@ function addJump(soundEffect, location){
       decides game clear or not
 */
 
-function gameOver(target, touchingColor, baseColor,soundEffect, location){
+function gameOver(target, touchingColor, baseColor, soundEffect, location){
   if (target.touching){
     changeColor(target, touchingColor);
     addJump(soundEffect, location);
@@ -497,7 +495,7 @@ function gameOver(target, touchingColor, baseColor,soundEffect, location){
 
 function bush(target, touchingColor, baseColor){
   if (target.touching){
-    changeColor(target,touchingColor);
+    changeColor(target, touchingColor);
     bushSound.play();
   }
   else {
@@ -514,7 +512,7 @@ function crash(target, touchingColor, baseColor){
   }
 }
 
-function paint(){
+function animate(){
 
   speedInitializer(whoElse, whoElseNumber);
 
@@ -525,12 +523,12 @@ function paint(){
   setPosition(whoElse, whoElseNumber);
   touchChecker(hero, npc, npcNumber);
 
-  crash(hero,'green', 'red');
+  crash(hero, 'green', 'red');
   gameOver(enemy, 'yellow', 'blue', boomSound, 'defeat');
   bush(tree, 'yellow', 'green');
   gameOver(goal, 'yellow', 'orange', treasureSound, 'clear');
 
-  requestAnimationFrame(paint);
+  requestAnimationFrame(animate);
 }
 
 function start(){
@@ -543,12 +541,12 @@ function start(){
 
   bgm.play();
 
-  paint();
+  animate();
 
 }
 /*
    Gets rid of no longer necessary things(start screen, cursor)
-    and start the game (starts off bgm and the "paint" animation loop)
+    and start the game (starts off bgm and the "animate" loop)
    Removing done by remove() method
 */
 
@@ -612,10 +610,11 @@ function shiftScreen(conditionOne, conditionTwo){
   startBox.style.display = conditionTwo;
 }
 
+
 // start main code
 
-window.addEventListener('keydown',press);
-window.addEventListener('keyup',release);
+window.addEventListener('keydown', press);
+window.addEventListener('keyup', release);
 
 musicButton.addEventListener('click', musicOn);
 
