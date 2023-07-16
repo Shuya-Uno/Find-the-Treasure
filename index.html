@@ -4,8 +4,30 @@
     <meta charset="utf-8">
     <title>Find the Treasure!</title>
     <link rel="stylesheet" href="css/styles.css"/>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "class": "./js/class.js",
+          "gameObject": "./js/gameObject.js",
+          "dimension": "./js/dimension.js",
+          "keyboard": "./js/keyboard.js",
+          "move": "./js/move.js",
+          "music": "./js/music.js",
+          "position": "./js/position.js",
+          "speed": "./js/speed.js",
+          "touch": "./js/touch.js"
+        }
+      }
+    </script>
+    <!--
+      importmap: can provide simpler URL identifier for module imports
+        can manage all import urls inside single location
+          also convenient when handling modules from external sites
+            no need of including <script> referring to modules other than main module, to HTML
+    -->
+
     <script type="module" src="js/script.js"></script>
-    <script type="module" src="js/class.js"></script>
   </head>
 
   <body>
@@ -13,7 +35,7 @@
       <div id ="border" class="absolute">
 
         <div id="field">
-          <div id="map" class="absolute map"></div>
+          <div id="map1" class="absolute map"></div>
           <div id="map2" class="absolute map"></div>
           <div id="map3" class="absolute map"></div>
           <div id="map4" class="absolute map"></div>

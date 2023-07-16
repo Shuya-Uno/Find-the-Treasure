@@ -19,7 +19,7 @@ class Map {
     }
 }
 
-// dx, dy: the final distance and direction the object moves based on each axis
+// dx, dy: the final "distance"(absolute value) and direction(positive or negative) the object moves based on each axis
 
 
 class OnMap extends Map {
