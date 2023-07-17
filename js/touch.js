@@ -1,6 +1,7 @@
-function touchChecker(subject, object){
+const touch = {
+  checker(subject, object){
     let subjectTouch = 0;
-
+  
     for (const Obj of object){
         if (
         subject.left < Obj.right &&
@@ -9,94 +10,84 @@ function touchChecker(subject, object){
         subject.top < Obj.bottom
         ){
         if (Obj.touching == false){
-            Obj.touching = true;
+          Obj.touching = true;
         }
-
+  
         subjectTouch++;
         }
-
+  
         else {
         if (Obj.touching){
-            Obj.touching = false;
+          Obj.touching = false;
         }
         }
     }
-
+  
     if (subjectTouch > 0){
         if (subject.touching == false){
-        subject.touching = true;
+          subject.touching = true;
         }
     }
-
+  
     else {
         if (subject.touching){
-        subject.touching = false;
+          subject.touching = false;
         }
     }
-}
-  
-function changeColor(targetObject, color){
+  },
+  changeColor(targetObject, color){
     if (targetObject.element.style.backgroundColor != color){
-        targetObject.element.style.backgroundColor = color;
+      targetObject.element.style.backgroundColor = color;
     }
-}
-  
-function jump(location){
+  },
+  jump(location){
     // soundEffect.boom.removeEventListener('ended', jump);
     window.location.href = location + ".html";
-}
-  
-function addJump(targetSound, location, boomSoundPaused, treasureSoundPaused){
+  },
+  addJump(targetSound, location, boomSoundPaused, treasureSoundPaused){
     if ( boomSoundPaused && treasureSoundPaused ){
-      targetSound.addEventListener('ended', () => jump(location));
+      targetSound.addEventListener('ended', () => this.jump(location));
       targetSound.play();
     }
- }
-  /*
-     Add event listener and play sound effect
-      only when soundEffect.boom or soundEffect.treasure is not playing...
-       = If the player reached the goal, or is caught by enemy
-        the first time
-     → Earlier thing the user touched (goal, enemy)
-        decides game clear or not
-  */
-  
-function gameOver(targetObject, touchingColor, baseColor, targetSound, location, boomSoundPaused, treasureSoundPaused){
+  },
+  gameOver(targetObject, touchingColor, baseColor, targetSound, location, boomSoundPaused, treasureSoundPaused){
     if (targetObject.touching){
-      changeColor(targetObject, touchingColor);
-      addJump(targetSound, location, boomSoundPaused, treasureSoundPaused);
+      this.changeColor(targetObject, touchingColor);
+      this.addJump(targetSound, location, boomSoundPaused, treasureSoundPaused);
     }
     else {
-      changeColor(targetObject, baseColor);
+      this.changeColor(targetObject, baseColor);
     }
-}
-  
-function bush(targetObject, touchingColor, baseColor, soundEffect){
+  },
+  bush(targetObject, touchingColor, baseColor, soundEffect){
     if (targetObject.touching){
-      changeColor(targetObject, touchingColor);
+      this.changeColor(targetObject, touchingColor);
       soundEffect.play();
     }
     else {
-      changeColor(targetObject, baseColor);
+      this.changeColor(targetObject, baseColor);
     }
-}
-  
-function crash(targetObject, touchingColor, baseColor){
+  },
+  crash(targetObject, touchingColor, baseColor){
     if (targetObject.touching){
-      changeColor(targetObject, touchingColor);
+      this.changeColor(targetObject, touchingColor);
     }
     else {
-      changeColor(targetObject, baseColor);
+      this.changeColor(targetObject, baseColor);
     }
+  }
+  /*
+    AddJump
+      Add event listener and play sound effect
+      only when soundEffect.boom or soundEffect.treasure is not playing...
+        = If the player reached the goal, or is caught by enemy
+        the first time
+      → Earlier thing the user touched (goal, enemy)
+        decides game clear or not
+  */
 }
 
 
 export {
-    touchChecker,
-    changeColor,
-    jump,
-    addJump,
-    gameOver,
-    bush,
-    crash
+  touch
 }

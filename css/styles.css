@@ -188,8 +188,7 @@ body:hover {
 }
 
 #title,
-#play-from-start,
-#instruction-link {
+#command-start > * {
   width: fit-content;
   padding: 0 10px 0 10px;
 
@@ -225,9 +224,6 @@ body:hover {
 
 #instruction-content {
   margin: 60px 0 0 30px;
-}
-
-#instruction-header {
 }
 
 #instruction-list {

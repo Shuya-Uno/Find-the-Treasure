@@ -1,4 +1,57 @@
-const musicButton = document.getElementById('music-button');
+const button = {
+  element: document.getElementById('music-button'),
+  setColor(color){
+    this.element.style.color = color;
+  },
+  lineThrough(condition){
+    this.element.style.textDecoration = condition;
+  },
+  on(){
+    bgm.volume = 0.5;
+    soundEffect.boom.volume = 1;
+    soundEffect.bush.volume = 1;
+    soundEffect.treasure.volume = 1;
+  
+    button.element.style.color = "blue";
+    button.element.style.textDecoration = "none";
+  
+    button.element.removeEventListener('click', button.on);
+    button.element.addEventListener('click', button.off);
+  
+    button.element.removeEventListener('mouseover', () => button.setColor('blue'));
+    button.element.removeEventListener('mouseout', () => button.setColor('#fff'));
+    button.element.addEventListener('mouseover', () => button.setColor('#fff'));
+    button.element.addEventListener('mouseout', () => button.setColor('blue'));
+  
+    button.element.removeEventListener('mouseover', () => button.lineThrough('none'));
+    button.element.removeEventListener('mouseout', () => button.lineThrough('line-through'));
+    button.element.addEventListener('mouseover', () => button.lineThrough('line-through'));
+    button.element.addEventListener('mouseout', () => button.lineThrough('none'));
+  },
+  off(){
+  bgm.volume = 0;
+  soundEffect.boom.volume = 0;
+  soundEffect.bush.volume = 0;
+  soundEffect.treasure.volume = 0;
+
+  button.element.style.color = "#fff";
+  button.element.style.textDecoration = "line-through";
+
+  button.element.removeEventListener('click', button.off);
+  button.element.addEventListener('click', button.on);
+
+  button.element.removeEventListener('mouseover', () => button.setColor('#fff'));
+  button.element.removeEventListener('mouseout', () => button.setColor('blue'));
+  button.element.addEventListener('mouseover', () => button.setColor('blue'));
+  button.element.addEventListener('mouseout', () => button.setColor('#fff'));
+
+  button.element.removeEventListener('mouseover', () => button.lineThrough('line-through'));
+  button.element.removeEventListener('mouseout', () => button.lineThrough('none'));
+  button.element.addEventListener('mouseover', () => button.lineThrough('none'));
+  button.element.addEventListener('mouseout', () => button.lineThrough('line-through'));
+}
+
+}
 
 const bgm = new Audio('music/retro.mp3');
 /*
@@ -20,67 +73,8 @@ soundEffect.bush.volume = 0;
 soundEffect.treasure.volume = 0;
 
 
-function setColor(color){
-  musicButton.style.color = color;
-}
-
-function lineThrough(condition){
-  musicButton.style.textDecoration = condition;
-}
-
-function musicOn(){
-  bgm.volume = 0.5;
-  soundEffect.boom.volume = 1;
-  soundEffect.bush.volume = 1;
-  soundEffect.treasure.volume = 1;
-
-  musicButton.style.color = "blue";
-  musicButton.style.textDecoration = "none";
-
-  musicButton.removeEventListener('click', musicOn);
-  musicButton.addEventListener('click', musicOff);
-
-  musicButton.removeEventListener('mouseover', () => setColor('blue'));
-  musicButton.removeEventListener('mouseout', () => setColor('#fff'));
-  musicButton.addEventListener('mouseover', () => setColor('#fff'));
-  musicButton.addEventListener('mouseout', () => setColor('blue'));
-
-  musicButton.removeEventListener('mouseover', () => lineThrough('none'));
-  musicButton.removeEventListener('mouseout', () => lineThrough('line-through'));
-  musicButton.addEventListener('mouseover', () => lineThrough('line-through'));
-  musicButton.addEventListener('mouseout', () => lineThrough('none'));
-}
-
-function musicOff(){
-  bgm.volume = 0;
-  soundEffect.boom.volume = 0;
-  soundEffect.bush.volume = 0;
-  soundEffect.treasure.volume = 0;
-
-  musicButton.style.color = "#fff";
-  musicButton.style.textDecoration = "line-through";
-
-  musicButton.removeEventListener('click', musicOff);
-  musicButton.addEventListener('click', musicOn);
-
-  musicButton.removeEventListener('mouseover', () => setColor('#fff'));
-  musicButton.removeEventListener('mouseout', () => setColor('blue'));
-  musicButton.addEventListener('mouseover', () => setColor('blue'));
-  musicButton.addEventListener('mouseout', () => setColor('#fff'));
-
-  musicButton.removeEventListener('mouseover', () => lineThrough('line-through'));
-  musicButton.removeEventListener('mouseout', () => lineThrough('none'));
-  musicButton.addEventListener('mouseover', () => lineThrough('none'));
-  musicButton.addEventListener('mouseout', () => lineThrough('line-through'));
-}
-
-
 export {
-  musicButton,
+  button,
   bgm,
-  soundEffect,
-  setColor,
-  lineThrough,
-  musicOn,
-  musicOff
+  soundEffect
 }

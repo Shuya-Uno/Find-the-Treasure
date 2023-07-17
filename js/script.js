@@ -1,109 +1,83 @@
 import {
-  dimension,
-  setDimension
+  dimension
 } from "dimension";
 
-import {
-  maps,
-  hero,
-  enemy,
-  tree,
-  goal
-} from "gameObject";
+import * as GameObject from "gameObject";
 
-import {
-  direction,
-  press,
-  release
-} from "keyboard";
+import * as Keyboard from "keyboard";
 
 import {
   move
 } from "move";
 
-import {
-  musicButton,
-  bgm,
-  soundEffect,
-  setColor,
-  lineThrough,
-  musicOn,
-  musicOff
-} from "music";
+import * as Music from "music";
 
 import {
-  position,
-  setPosition
+  position
 } from "position";
 
 import {
-  touchChecker,
-  changeColor,
-  jump,
-  addJump,
-  gameOver,
-  bush,
-  crash
+  touch
 } from "touch";
 
-import {
-  speedInitializer,
-  chaser
-} from "speed";
+import * as Speed from "speed";
 
+/*
+  Using Namespace import to make the source module of the imported scripts apparent inside code
+  For objects that are the only ones imported from source, 
+    and the sources are already apparent by its object name, using Named imports
+*/
 
 const border = document.getElementById('border');
 const startScreen = document.getElementById('start-screen');
 
-const playFromStart = document.getElementById('play-from-start');
 const instructionLink = document.getElementById('instruction-link');
 const instruction = document.getElementById('instruction-wrapper');
 const startBox = document.getElementById('start-box');
 
-
 const back = document.getElementById('back');
-const playFromInstruction = document.getElementById('play-from-instruction');
 
+const playButton = document.getElementsByClassName('play-button');
 
 const whoElse = [
-  maps.center,
-  maps.top,
-  maps.topRight,
-  maps.right,
-  maps.bottomRight,
-  maps.bottom,
-  maps.bottomLeft,
-  maps.left,
-  maps.topLeft,
-  enemy,
-  tree,
-  goal
+  GameObject.maps.center,
+  GameObject.maps.top,
+  GameObject.maps.topRight,
+  GameObject.maps.right,
+  GameObject.maps.bottomRight,
+  GameObject.maps.bottom,
+  GameObject.maps.bottomLeft,
+  GameObject.maps.left,
+  GameObject.maps.topLeft,
+  GameObject.enemy,
+  GameObject.tree,
+  GameObject.goal
 ];
 // whoElse: Array of movable objects other than hero
 
 const npc = [
-  enemy,
-  tree,
-  goal
+  GameObject.enemy,
+  GameObject.tree,
+  GameObject.goal
 ];
 // npc: Array of on-map objects other than hero
 
 
 function animate(){
 
-  speedInitializer(whoElse);
+  Speed.speedInitializer(whoElse);
 
-  chaser(hero, enemy);
-  move.mover(whoElse, direction, hero);
+  Speed.chaser(GameObject.hero, GameObject.enemy);
+  move.mover(whoElse, Keyboard.direction, GameObject.hero);
 
-  setDimension(npc);
-  setPosition(whoElse);
-  touchChecker(hero, npc);
+  dimension.set(npc);
+  position.set(whoElse);
+  touch.checker(GameObject.hero, npc);
 
-  crash(hero, 'green', 'red');
-  gameOver(enemy, 'yellow', 'blue', soundEffect.boom, 'defeat', soundEffect.boom.paused, soundEffect.treasure.paused);
-  bush(tree, 'yellow', 'green', soundEffect.bush);
-  gameOver(goal, 'yellow', 'orange', soundEffect.treasure, 'clear', soundEffect.boom.paused, soundEffect.treasure.paused);
+  touch.crash(GameObject.hero, 'green', 'red');
+  touch.gameOver(GameObject.enemy, 'yellow', 'blue', Music.soundEffect.boom, 'defeat', Music.soundEffect.boom.paused, Music.soundEffect.treasure.paused);
+  touch.bush(GameObject.tree, 'yellow', 'green', Music.soundEffect.bush);
+  touch.gameOver(GameObject.goal, 'yellow', 'orange', Music.soundEffect.treasure, 'clear', Music.soundEffect.boom.paused, Music.soundEffect.treasure.paused);
 
   requestAnimationFrame(animate);
 }
@@ -116,14 +90,14 @@ function start(){
 
   border.style.cursor = "none";
 
-  bgm.play();
+  Music.bgm.play();
 
   animate();
 
 }
 /*
    Gets rid of no longer necessary things(start screen, cursor)
-    and start the game (starts off bgm and the "animate" loop)
+    and start the game (starts off Music.bgm and the "animate" loop)
    Removing done by remove() method
 */
 
@@ -136,15 +110,17 @@ function shiftScreen(instructionDisplay, startBoxDisplay){
 
 // start main code
 
-window.addEventListener('keydown', press);
-window.addEventListener('keyup', release);
+window.addEventListener('keydown', Keyboard.press);
+window.addEventListener('keyup', Keyboard.release);
 
-musicButton.addEventListener('click', musicOn);
+Music.button.element.addEventListener('click', Music.button.on);
 
 instructionLink.addEventListener('click', () => shiftScreen("flex", "none"));
-playFromStart.addEventListener('click', start);
 
 back.addEventListener('click', () => shiftScreen("none", "flex"));
-playFromInstruction.addEventListener('click', start);
+
+for (const playBtn of playButton){
+  playBtn.addEventListener('click', start);
+}
 
 // end main code
