@@ -1,6 +1,7 @@
 import {
   Map,
-  OnMap
+  OnMapFixed,
+  OnMapMovables
 } from "class";
 
 const mapWidth = 1024;
@@ -117,7 +118,7 @@ const maps = {
   topLeft: map9
 }
   
-const hero = new OnMap(
+const hero = new OnMapMovables(
   document.getElementById('hero'),
   onMapWidth,
   onMapHeight,
@@ -130,7 +131,7 @@ const hero = new OnMap(
   false
 );
 
-const enemy = new OnMap(
+const enemy = new OnMapMovables(
   document.getElementById('enemy'),
   onMapWidth,
   onMapHeight,
@@ -143,7 +144,7 @@ const enemy = new OnMap(
   false
 );
 
-const tree = new OnMap(
+const tree = new OnMapFixed(
   document.getElementById('tree'),
   onMapWidth,
   onMapHeight,
@@ -156,7 +157,7 @@ const tree = new OnMap(
   false
 );
 
-const goal = new OnMap(
+const goal = new OnMapFixed(
   document.getElementById('goal'),
   onMapWidth,
   onMapHeight,

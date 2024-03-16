@@ -19,10 +19,10 @@ class Map {
     }
 }
 
-// dx, dy: the final "distance"(absolute value) and direction(positive or negative) the object moves based on each axis
+// dx, dy: The final "distance"(absolute value) and direction(positive or negative) the object moves based on each axis
 
 
-class OnMap extends Map {
+class OnMapFixed extends Map {
   constructor(
     element,
     width,
@@ -56,9 +56,45 @@ class OnMap extends Map {
 }
 
 /*
-   left, top, right, bottom: used to evaluate the "positional relationship and
-    contact(whether they are touching each other or not)" of objects
-   speedX, speedY: affects the speed and direction the special moving objects (such as hero,enemy) moves based on each axis
- */
+   left, top, right, bottom: Used to evaluate the "contact(whether they are touching each other or not)" of objects
+   speedX, speedY: Affects the speed and direction the movables (such as hero,enemy... anything that is not fixed on map) moves 
+    based on each axis
+*/
 
-export {Map, OnMap};
+class OnMapMovables extends OnMapFixed {
+  constructor(
+    element,
+    width,
+    height,
+    x,
+    y,
+    speedX,
+    speedY,
+    dx,
+    dy,
+    touching
+  ){
+    super(
+      element,
+      width,
+      height,
+      x,
+      y,
+      speedX,
+      speedY,
+      dx,
+      dy,
+      touching
+    );
+
+    this.centerX = x + (width / 2)
+    this.centerY = y + (height / 2)
+  }
+}
+
+/* 
+   centerX, centerY: Defines the center coordinate of the movables (used for calculating the positional relationship
+    between hero and enemy. Higher accuracy than using left, top, ...)
+*/
+
+export {Map, OnMapFixed, OnMapMovables};

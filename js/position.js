@@ -2,7 +2,10 @@ const position = {
   configure(targetObject){
     targetObject.x = targetObject.x + targetObject.dx;
     targetObject.y = targetObject.y + targetObject.dy;
-    // Reconfigure the x and y value, referring to current position(x,y) and speed
+    
+    targetObject.centerX = targetObject.centerX + targetObject.dx;
+    targetObject.centerY = targetObject.centerY + targetObject.dy;
+    // Reconfigure the x, y, centerX, centerY value, referring to current position (x,y) and speed
   
     targetObject.element.style.left = targetObject.x + "px";
     targetObject.element.style.top = targetObject.y + "px";

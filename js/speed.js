@@ -25,14 +25,14 @@ function speedInitializer(targetObject){
   
   
 function chaser(prey, subject){
-    if (subject.left > prey.left){
+    if (subject.centerX > prey.centerX){
         subject.speedX = Math.abs(subject.speedX) * (-1);
     }
     else {
         subject.speedX = Math.abs(subject.speedX);
     }
 
-    if (subject.top > prey.top){
+    if (subject.centerY > prey.centerY){
         subject.speedY = Math.abs(subject.speedY) * (-1);
     }
     else {
@@ -43,7 +43,7 @@ function chaser(prey, subject){
 /*
     chaser
     (Re)Configure the direction of enemy's movement to chase hero
-    direction decided by the positional relationship with hero
+     Direction decided by the positional relationship with hero
 */
 
 export {
