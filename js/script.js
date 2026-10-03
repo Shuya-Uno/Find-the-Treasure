@@ -49,6 +49,7 @@ const whoElse = [
   GameObject.maps.bottomLeft,
   GameObject.maps.left,
   GameObject.maps.topLeft,
+  GameObject.boundary,
   GameObject.enemy,
   GameObject.tree,
   GameObject.goal
@@ -65,14 +66,17 @@ const npc = [
 
 function animate(){
 
+  // const touchBorder = touch.checkerBorder();
   Speed.speedInitializer(whoElse);
 
   Speed.chaser(GameObject.hero, GameObject.enemy);
-  move.mover(whoElse, Keyboard.direction, GameObject.hero);
+  move.mover(whoElse, Keyboard.direction, GameObject.hero
+    // , touchBorder.left, touchBorder.right, touchBorder.top, touchBorder.bottom
+  );
 
   dimension.set(npc);
   position.set(whoElse);
-  touch.checker(GameObject.hero, npc);
+  touch.checkerOnMap(GameObject.hero, npc);
 
   touch.crash(GameObject.hero, 'green', 'red');
   touch.gameOver(GameObject.enemy, 'yellow', 'blue', Music.soundEffect.boom, 'defeat', Music.soundEffect.boom.paused, Music.soundEffect.treasure.paused);

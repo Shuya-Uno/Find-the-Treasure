@@ -4,8 +4,11 @@ import {
   OnMapMovables
 } from "class";
 
-const mapWidth = 1024;
-const mapHeight = 768;
+const mapsHorizontal = 3;
+const mapsVertical = 3;
+
+const mapWidth = 1280;
+const mapHeight = 1280;
 
 const onMapWidth = 60;
 const onMapHeight = 60;
@@ -25,6 +28,8 @@ const map1 = new Map(
   0,
   0
 );
+
+// console.log(map1);
   
 const map2 = new Map(
   document.getElementById('map2'),
@@ -117,6 +122,30 @@ const maps = {
   left: map8,
   topLeft: map9
 }
+
+const boundary = new Map(
+  document.getElementById('boundary'),
+  mapWidth * mapsHorizontal,
+  mapHeight * mapsVertical,
+  -mapWidth,
+  -mapHeight,
+  0,
+  0  
+);
+console.log(boundary);
+console.log(map1);
+// const boundary = {
+//   width: mapWidth * mapsHorizontal,
+//   height: mapHeight * mapsVertical,
+//   x: -mapWidth,
+//   y: -mapHeight,
+//   dx: 0,
+//   dy: 0,
+//   left: -mapWidth,
+//   top: -mapHeight,
+//   right: -mapWidth + mapWidth * mapsHorizontal,
+//   left: -mapHeight + mapHeight * mapsVertical
+// }
   
 const hero = new OnMapMovables(
   document.getElementById('hero'),
@@ -172,6 +201,7 @@ const goal = new OnMapFixed(
 
 export {
   maps,
+  boundary,
   hero,
   enemy,
   tree,

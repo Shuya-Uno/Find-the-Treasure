@@ -1,7 +1,6 @@
 const touch = {
-  checker(subject, object){
-    let subjectTouch = 0;
-  
+  checkerOnMap(subject, object){
+    let subjectTouch = false;
     for (const Obj of object){
         if (
         subject.left < Obj.right &&
@@ -13,7 +12,7 @@ const touch = {
           Obj.touching = true;
         }
   
-        subjectTouch++;
+        subjectTouch = true;
         }
   
         else {
@@ -23,7 +22,7 @@ const touch = {
         }
     }
   
-    if (subjectTouch > 0){
+    if (subjectTouch){
         if (subject.touching == false){
           subject.touching = true;
         }
@@ -35,6 +34,29 @@ const touch = {
         }
     }
   },
+  // checkerBorder(subject, object){
+  //   const touch = {
+  //     left: false,
+  //     right: false,
+  //     top: false,
+  //     bottom: false
+  //   };
+  //   console.log(touch.left);
+  //   if (!subject.left < object.left){
+  //     touch.left = true;
+  //   }
+  //   if(
+  //     !subject.right > object.right){
+  //       touch.right = true;
+  //     }
+  //   if(!subject.top > object.right){
+  //     touch.top = true;
+  //   }
+  //   if(!subject.bottom < object.bottom){
+  //     touch.bottom = true;
+  //   }
+  //   return touch;
+  // },
   changeColor(targetObject, color){
     if (targetObject.element.style.backgroundColor != color){
       targetObject.element.style.backgroundColor = color;
@@ -75,9 +97,15 @@ const touch = {
     else {
       this.changeColor(targetObject, baseColor);
     }
-  }
+  }   
   /*
-    AddJump
+    checkerOnMap
+      Checks if the hero is touching other onMap objects
+      and manages the state of contact by changing the boolean between true and false accordingly
+
+      Purely for triggering events which occurs when hero touched the onMap objects
+
+    addJump
       Add event listener and play sound effect
       only when soundEffect.boom or soundEffect.treasure is not playing...
         = If the player reached the goal, or is caught by enemy
@@ -86,6 +114,7 @@ const touch = {
         decides game clear or not
   */
 }
+// console.log(touch.checkerBorder())
 
 
 export {

@@ -8,6 +8,9 @@
 :root {
   --map-width: 1280px;
   --map-height: 1280px;
+
+  --mapsHorizontal: 3;
+  --mapsVertical: 3;
 }
 /* Define map-width and map-hight with custom properties
 
@@ -58,6 +61,12 @@ body:hover {
   */
 
   border-radius: 10px;
+}
+
+#boundary {
+  width: calc(var(--map-width) * var(--mapsHorizontal));
+  height: calc(var(--map-height) * var(--mapsVertical));
+  border: 1px solid red;
 }
 
 .map {

@@ -19,20 +19,28 @@ const move = {
             targetObj.dy -= hero.speedY;
         }
     },
-    mover(targetObject, key, hero){
-        if (key.ArrowLeft || key.a){
+    mover(targetObject, key, hero, borderTouchLeft, borderTouchRight, borderTouchTop, borderTouchBottom){
+        if (key.ArrowLeft || key.a
+            // && !borderTouchLeft
+        ){
           move.left(targetObject, hero);
         }
       
-        if (key.ArrowRight || key.d){
+        if (key.ArrowRight || key.d
+            // && !borderTouchRight
+        ){
           move.right(targetObject, hero);
         }
       
-        if (key.ArrowUp || key.w){
+        if (key.ArrowUp || key.w
+            // && !borderTouchTop
+        ){
           move.up(targetObject, hero);
         }
       
-        if (key.ArrowDown || key.s){
+        if (key.ArrowDown || key.s
+            // && !borderTouchBottom
+        ){
           move.down(targetObject, hero);
         }
     }

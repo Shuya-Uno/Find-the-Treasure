@@ -10,15 +10,24 @@ class Map {
     dy
   ){
     this.element = element;
+
     this.width = width;
     this.height = height;
+
     this.x = x;
     this.y = y;
+
+    // this.left = x;
+    // this.top = y;
+    // this.right = x + width;
+    // this.bottom = y + height;
+
     this.dx = dx;
     this.dy = dy;
+    
     }
 }
-
+// element: Used to actually control the movements of the game objects on screen, visually
 // dx, dy: The final "distance"(absolute value) and direction(positive or negative) the object moves based on each axis
 
 
@@ -57,8 +66,10 @@ class OnMapFixed extends Map {
 
 /*
    left, top, right, bottom: Used to evaluate the "contact(whether they are touching each other or not)" of objects
-   speedX, speedY: Affects the speed and direction the movables (such as hero,enemy... anything that is not fixed on map) moves 
+   speedX, speedY: Affects the speed and direction the movables (such as hero,enemy... anything that is not fixed on map) moves
     based on each axis
+
+   By using the extends and super keyword, concentrating only on creating new properties
 */
 
 class OnMapMovables extends OnMapFixed {
