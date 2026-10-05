@@ -23,7 +23,7 @@ const dimension = {
   /*
     set
     Run calculate() for each objects
-    Targets are on-map obects other than hero
+    The targets are on-map obects other than hero
       (who can have contact with hero and also move on the screen)
   */
 }

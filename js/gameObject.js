@@ -123,29 +123,18 @@ const maps = {
   topLeft: map9
 }
 
-const boundary = new Map(
+const boundary = new OnMapFixed(
   document.getElementById('boundary'),
   mapWidth * mapsHorizontal,
   mapHeight * mapsVertical,
   -mapWidth,
   -mapHeight,
   0,
-  0  
+  0,
+  0,
+  0,
+  false
 );
-console.log(boundary);
-console.log(map1);
-// const boundary = {
-//   width: mapWidth * mapsHorizontal,
-//   height: mapHeight * mapsVertical,
-//   x: -mapWidth,
-//   y: -mapHeight,
-//   dx: 0,
-//   dy: 0,
-//   left: -mapWidth,
-//   top: -mapHeight,
-//   right: -mapWidth + mapWidth * mapsHorizontal,
-//   left: -mapHeight + mapHeight * mapsVertical
-// }
   
 const hero = new OnMapMovables(
   document.getElementById('hero'),
@@ -198,6 +187,8 @@ const goal = new OnMapFixed(
   0,
   false
 );
+
+// Creating actual objects by calling the constructor functions
 
 export {
   maps,

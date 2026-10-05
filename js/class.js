@@ -29,6 +29,8 @@ class Map {
 }
 // element: Used to actually control the movements of the game objects on screen, visually
 // dx, dy: The final "distance"(absolute value) and direction(positive or negative) the object moves based on each axis
+// When the constructor is called and parameters are given, the statements inside the function will
+//  do the job to create the object.
 
 
 class OnMapFixed extends Map {

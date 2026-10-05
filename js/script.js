@@ -56,25 +56,33 @@ const whoElse = [
 ];
 // whoElse: Array of movable objects other than hero
 
+const touchable = [
+  GameObject.boundary,
+  GameObject.enemy,
+  GameObject.tree,
+  GameObject.goal
+];
+// touchable: Array of the on-map objects that hero can touch
+
 const npc = [
   GameObject.enemy,
   GameObject.tree,
   GameObject.goal
 ];
-// npc: Array of on-map objects other than hero
+// npc: Array of on-map objects that hero can touch and interact
 
 
 function animate(){
 
-  // const touchBorder = touch.checkerBorder();
+  const touchBoundary = touch.checkerBoundary(GameObject.hero, GameObject.boundary);
   Speed.speedInitializer(whoElse);
 
   Speed.chaser(GameObject.hero, GameObject.enemy);
   move.mover(whoElse, Keyboard.direction, GameObject.hero
-    // , touchBorder.left, touchBorder.right, touchBorder.top, touchBorder.bottom
+    , touchBoundary.left, touchBoundary.right, touchBoundary.top, touchBoundary.bottom
   );
 
-  dimension.set(npc);
+  dimension.set(touchable);
   position.set(whoElse);
   touch.checkerOnMap(GameObject.hero, npc);
 

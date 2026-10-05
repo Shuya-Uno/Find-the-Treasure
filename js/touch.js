@@ -14,6 +14,13 @@ const touch = {
   
         subjectTouch = true;
         }
+
+        /*
+          If the hero is touching other onMap objects,
+           set the touch status of onMap objects to true
+          Also set subjectTouch to true... used to change
+           the touch status of hero in the next if circuit
+        */
   
         else {
         if (Obj.touching){
@@ -33,30 +40,36 @@ const touch = {
           subject.touching = false;
         }
     }
+
   },
-  // checkerBorder(subject, object){
-  //   const touch = {
-  //     left: false,
-  //     right: false,
-  //     top: false,
-  //     bottom: false
-  //   };
-  //   console.log(touch.left);
-  //   if (!subject.left < object.left){
-  //     touch.left = true;
-  //   }
-  //   if(
-  //     !subject.right > object.right){
-  //       touch.right = true;
-  //     }
-  //   if(!subject.top > object.right){
-  //     touch.top = true;
-  //   }
-  //   if(!subject.bottom < object.bottom){
-  //     touch.bottom = true;
-  //   }
-  //   return touch;
-  // },
+  checkerBoundary(hero, boundary){
+    const touch = {
+      left: false,
+      right: false,
+      top: false,
+      bottom: false
+    };
+    // Creating touch object to pass to move.mover method
+
+    if (hero.left <= boundary.left){
+      touch.left = true;
+    }
+    if(hero.right >= boundary.right){
+        touch.right = true;
+      }
+    if(hero.top <= boundary.top){
+      touch.top = true;
+    }
+    if(hero.bottom >= boundary.bottom){
+      touch.bottom = true;
+    }
+    /* If the hero's left, right, top or bottom is touching the boundary,
+        change the touch (direction) status to true
+    */
+
+    return touch;
+    // Returns touch object
+  },
   changeColor(targetObject, color){
     if (targetObject.element.style.backgroundColor != color){
       targetObject.element.style.backgroundColor = color;
@@ -67,7 +80,7 @@ const touch = {
     window.location.href = location + ".html";
   },
   addJump(targetSound, location, boomSoundPaused, treasureSoundPaused){
-    if ( boomSoundPaused && treasureSoundPaused ){
+    if (boomSoundPaused && treasureSoundPaused){
       targetSound.addEventListener('ended', () => this.jump(location));
       targetSound.play();
     }
@@ -97,24 +110,36 @@ const touch = {
     else {
       this.changeColor(targetObject, baseColor);
     }
-  }   
+  }
   /*
     checkerOnMap
       Checks if the hero is touching other onMap objects
       and manages the state of contact by changing the boolean between true and false accordingly
 
-      Purely for triggering events which occurs when hero touched the onMap objects
+      The key method for triggering events which occurs when hero touched the onMap objects
+
+    changeColor
+      Changes the color of the target object to the color given as the argument
+
+    jump
+      Jumps the user to another page when the game is over
+      Location is determined depending on the argument
+
 
     addJump
-      Add event listener and play sound effect
-      only when soundEffect.boom or soundEffect.treasure is not playing...
+      Add event listener that runs the jump function when the sound effect has ended,
+       and play sound effect
+
+      It runs only when soundEffect.boom or soundEffect.treasure is not playing...
         = If the player reached the goal, or is caught by enemy
-        the first time
-      → Earlier thing the user touched (goal, enemy)
-        decides game clear or not
+           the first time
+      → The first object the user touches that leads to game over (goal, enemy)
+         will decide if the game is cleared or not (failed)
+
+    crash
+      Runs changeColor method for hero when hero touched another onMap object
   */
 }
-// console.log(touch.checkerBorder())
 
 
 export {
