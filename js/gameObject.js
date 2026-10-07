@@ -13,6 +13,9 @@ const mapHeight = 1280;
 const onMapWidth = 60;
 const onMapHeight = 60;
 
+const treasureBoxWidth = 60;
+const treasureBoxHeight = 40;
+
 const heroSpeedX = 6;
 const heroSpeedY = 6;
 
@@ -177,8 +180,8 @@ const tree = new OnMapFixed(
 
 const goal = new OnMapFixed(
   document.getElementById('goal'),
-  onMapWidth,
-  onMapHeight,
+  treasureBoxWidth,
+  treasureBoxHeight,
   1600,
   -400,
   0,
@@ -187,6 +190,21 @@ const goal = new OnMapFixed(
   0,
   false
 );
+
+/*
+ const goal = new OnMapFixed(
+   document.getElementById('goal'),
+   onMapWidth,
+   onMapHeight,
+   1600,
+   -400,
+   0,
+   0,
+   0,
+   0,
+   false
+ );
+*/
 
 // Creating actual objects by calling the constructor functions
 
